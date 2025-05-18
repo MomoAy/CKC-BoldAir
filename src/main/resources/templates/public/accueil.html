@@ -2,36 +2,243 @@
 <html th:with="tabTitle='Accueil'" lang="fr">
 
 <head th:replace="~{_fragments/layout :: head(${tabTitle})}">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/styles.css" />
+  <meta charset="UTF-8"> <!-- encodage UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+  <link rel="stylesheet" href="../../static/css/styles.css" /> <!-- stylesheet -->
 </head>
 
 <body>
 
-  <!-- -->
   <!-- En-tête de page - barre de navigation -->
-  <!-- -->
-  <header th:replace="~{_fragments/layout :: header }"></header>
+  <header th:replace="~{_fragments/layout :: header }"></header> <!-- navbar -->
 
-  <!-- -->
   <!-- Contenu de la page -->
-  <!-- -->
-  <section class="container my-3">
+  <!-- SECTION 1: Hero avec image en arrière-plan -->
+  <section id="hero" class="position-relative text-white d-flex align-items-center justify-content-center" th:style="|
+      background-image: url('@{/img/favicon.png}');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+    |">
 
-    <div class="col-12 col-sm-6 my-3 mx-auto text-center">
-      <img class="img-fluid" th:src="@{/img/boldair.jpg}" style="max-width: 320px;">
-    </div> <!-- Fin Colonne 2 -->
+    <!-- Conteneur du texte avec positionnement personnalisé -->
+    <div class="text-center" style="margin-top: -150px;">
+      <h1 class="display-3 fw-bold">CKC Canoë</h1> <!-- titre -->
+      <p class="lead">Sport, tourisme & apprentissage</p> <!-- slogan -->
+    </div>
+  </section>
 
-  </section> <!-- Fin Contenu de la page -->
+  <!-- SECTION SCROLLABLE AVEC FLECHES + BARRE -->
+  <section style="padding: 2rem; background: #fff;">
+    <h2 class="text-center fw-bold mb-2">LES ACTIVITÉS DE CKC</h2>
+    <p class="text-center mb-4">Découvrez nos activités : sport, tourisme et apprentissage en canoë.</p>
 
-  <!-- -->
+    <div class="slider-container position-relative">
+      <!-- Conteneur des cartes -->
+      <div class="slider" id="slider">
+        <!-- Carte 1 -->
+        <div class="card">
+          <img src="/img/sport1.jpeg" alt="Sport en canoë" />
+          <p>Sport en canoë</p>
+        </div>
+
+        <!-- Carte 2 -->
+        <div class="card">
+          <img src="/img/tourisme.jpeg" alt="Tourisme en rivière" />
+          <p>Tourisme en rivière</p>
+        </div>
+
+        <!-- Carte 3 -->
+        <div class="card">
+          <img src="/img/apprentissage.jpeg" alt="Cours d'apprentissage" />
+          <p>Apprentissage en club</p>
+        </div>
+
+        <!-- Ajouter d'autres cartes ici -->
+
+        <!-- Carte 3 -->
+        <div class="card">
+          <img src="/img/actus.jpeg" alt="Actualites" />
+          <p>Actualites et offres</p>
+        </div>
+
+        <!-- Ajouter d'autres cartes ici -->
+      </div>
+
+      <!-- Flèches -->
+      <button class="arrow left" onclick="scrollSlider(-1)">&#10094;</button>
+      <button class="arrow right" onclick="scrollSlider(1)">&#10095;</button>
+
+      <!-- Barre de progression -->
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </section>
+
+  <!--STYLES -->
+  <style>
+    .slider-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+      scroll-behavior: smooth;
+    }
+
+    .card {
+      min-width: 300px;
+      margin: 0 10px;
+      text-align: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      transform: scale(1.05);
+      /* Agrandit la carte à 105% */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      /* Ajoute une ombre plus marquée */
+      z-index: 1;
+      /* S'assure que la carte est au-dessus des autres pendant le hover */
+    }
+
+
+
+    .card img {
+      width: 100%;
+      border-radius: 0px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 24px;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .arrow.left {
+      left: 0;
+    }
+
+    .arrow.right {
+      right: 0;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #ccc;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: blue;
+      transition: width 0.3s;
+    }
+  </style>
+
+  <!-- SCRIPT -->
+  <script>
+    const slider = document.getElementById('slider');
+    const progress = document.getElementById('progress');
+    const cardWidth = 320; // largeur approximative d'une carte (300px + marge)
+
+    let scrollPosition = 0;
+
+    function scrollSlider(direction) {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      scrollPosition += direction * cardWidth;
+      scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+
+      slider.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+
+      // Mise à jour de la barre de progression
+      const progressPercent = (scrollPosition / maxScroll) * 100;
+      progress.style.width = progressPercent + "%";
+    }
+  </script>
+
+
+  <!-- SECTION 2: Qui sommes-nous ? -->
+  <section id="about" class="container py-5"> <!-- container centré, padding vertical -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center"> <!-- largeur moyenne sur desktop -->
+        <h2>Qui sommes-nous&nbsp;?</h2> <!-- titre section -->
+        <p>CKC est une société événementielle spécialisée dans les activités en canoë : sportives, touristiques et
+          pédagogiques.</p> <!-- description -->
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <section class="bg-gray-50 py-16 px-6 md:px-20 flex flex-col md:flex-row items-center gap-10">
+    <!-- Image à gauche, avec largeur réduite -->
+    <div class="w-full md:w-1/2 flex justify-start px-4"> <!-- justify-start pour aligner à gauche -->
+      <img src="/img/boldair.jpg" alt="Affiche Bol d’air 2025"
+        class="w-full max-w-sm rounded-xl shadow-lg object-cover">
+      <!-- max-w-sm réduit la taille max -->
+    </div>
+
+    <!-- Texte à droite -->
+    <div class="w-full md:w-1/2 px-4">
+      <h2 class="text-4xl font-bold text-gray-800 mb-4">Raid – Bol d’air 2025</h2>
+
+      <p class="text-lg text-gray-600 mb-2">
+        Le <strong>Bol d’air 2025</strong> se tiendra le <strong class="text-blue-600">dimanche 6 juillet 2025</strong>.
+      </p>
+
+      <p class="text-red-500 font-semibold mb-4">
+        Les inscriptions seront bientôt ouvertes !
+      </p>
+
+      <p class="text-gray-700 mb-4">
+        N'oubliez pas d’apporter un certificat médical d’<strong>absence de contre-indication</strong> à la pratique du
+        sport en compétition.
+      </p>
+
+      <p class="text-gray-700 mb-6 leading-relaxed">
+        Au programme : <strong>VTT 🚴‍♂️, canoë 🚣‍♀️ et course à pied 🏃‍♂️</strong>.<br>
+        Plus que du sport, c’est un moment de
+        <span class="text-green-600 font-semibold">convivialité, de partage et de bonne humeur</span> !<br>
+        L’évènement se fait <strong>par équipe de 2</strong>.
+      </p>
+
+      <a href="#"
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium py-3 px-6 rounded-xl transition">
+        Plus d’informations
+      </a>
+    </div>
+  </section>
+
+
+
+
   <!-- Pied de page -->
-  <!-- -->
-  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
+  <footer th:replace="~{_fragments/layout :: footer}"></footer> <!-- footer -->
 
   <!-- Scripts définis dans le layout -->
-  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
+  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block> <!-- scripts -->
 
 </body>
 
