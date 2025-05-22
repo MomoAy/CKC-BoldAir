@@ -31,51 +31,54 @@
 
   <!-- SECTION SCROLLABLE AVEC FLECHES + BARRE -->
   <section style="padding: 2rem; background: #fff;">
-    <h2 class="text-center fw-bold mb-2">LES ACTIVITÉS DE CKC</h2>
-    <p class="text-center mb-4">Découvrez nos activités : sport, tourisme et apprentissage en canoë.</p>
+    <div class="container">
+      <h2 class="text-center fw-bold mb-2">LES ACTIVITÉS DE CKC</h2>
+      <p class="text-center mb-4">Découvrez nos activités : sport, tourisme et apprentissage en canoë.</p>
 
-    <div class="slider-container position-relative">
-      <!-- Conteneur des cartes -->
-      <div class="slider" id="slider">
-        <!-- Carte 1 -->
-        <div class="card">
-          <img src="/img/sport1.jpeg" alt="Sport en canoë" />
-          <p>Sport en canoë</p>
+      <div class="slider-container position-relative">
+        <!-- Conteneur des cartes -->
+        <div class="slider d-flex justify-content-center" id="slider">
+          <div class="card mx-2">
+            <img src="/img/sport1.jpeg" class="card-img-top" alt="Sport en canoë">
+            <div class="card-body text-center">
+              <p class="mb-0">Sport en canoë</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/tourisme.jpeg" class="card-img-top" alt="Tourisme en rivière">
+            <div class="card-body text-center">
+              <p class="mb-0">Tourisme en rivière</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/apprentissage.jpeg" class="card-img-top" alt="Cours d'apprentissage">
+            <div class="card-body text-center">
+              <p class="mb-0">Apprentissage en club</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/actus.jpeg" class="card-img-top" alt="Actualités et offres">
+            <div class="card-body text-center">
+              <p class="mb-0">Actualités et offres</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Carte 2 -->
-        <div class="card">
-          <img src="/img/tourisme.jpeg" alt="Tourisme en rivière" />
-          <p>Tourisme en rivière</p>
+        <!-- Flèches -->
+        <button class="arrow left" onclick="scrollSlider(-1)">&#10094;</button>
+        <button class="arrow right" onclick="scrollSlider(1)">&#10095;</button>
+
+        <!-- Barre de progression -->
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
         </div>
-
-        <!-- Carte 3 -->
-        <div class="card">
-          <img src="/img/apprentissage.jpeg" alt="Cours d'apprentissage" />
-          <p>Apprentissage en club</p>
-        </div>
-
-        <!-- Ajouter d'autres cartes ici -->
-
-        <!-- Carte 3 -->
-        <div class="card">
-          <img src="/img/actus.jpeg" alt="Actualites" />
-          <p>Actualites et offres</p>
-        </div>
-
-        <!-- Ajouter d'autres cartes ici -->
-      </div>
-
-      <!-- Flèches -->
-      <button class="arrow left" onclick="scrollSlider(-1)">&#10094;</button>
-      <button class="arrow right" onclick="scrollSlider(1)">&#10095;</button>
-
-      <!-- Barre de progression -->
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
       </div>
     </div>
   </section>
+
 
   <!--STYLES -->
   <style>
@@ -85,13 +88,20 @@
     }
 
     .slider {
+      /* centre les cartes horizontales et permet le scroll */
       display: flex;
+      justify-content: center;
+      gap: 1rem;
+      /* espace entre les cards */
       transition: transform 0.3s ease-in-out;
+      overflow-x: auto;
       scroll-behavior: smooth;
+      padding-bottom: 1rem;
+      /* pour dégager la barre de progression */
     }
 
     .card {
-      min-width: 300px;
+      min-width: 250px;
       margin: 0 10px;
       text-align: center;
       flex-shrink: 0;
@@ -112,8 +122,8 @@
 
     .card img {
       width: 100%;
-      border-radius: 0px;
-      height: 200px;
+      border-radius: 10px;
+      height: 180px;
       object-fit: cover;
     }
 
