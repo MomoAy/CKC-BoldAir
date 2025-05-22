@@ -103,6 +103,3 @@ CREATE TABLE Inscription_Equipe (
    FOREIGN KEY(id_ev) REFERENCES Evenement(id_ev),
    CONSTRAINT unique_equipe_event UNIQUE (id_equipe, id_ev)
 );
-
-
-📄
