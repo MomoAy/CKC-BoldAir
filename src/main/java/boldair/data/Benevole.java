@@ -10,18 +10,12 @@ import org.springframework.data.annotation.Id;
 public class Benevole {
 
 	@Id
-	private Long idBen;
-
-	private String type;
-
-	private String nomBen;
-
-	private String prenom;
-
-	private String email;
-
-	private String disponibilites;
-
-	private String telephone;
+	private Long	idBen;
+	private String	type;
+	private String	nomBen;
+	private String	prenom;
+	private String	email;
+	private String	disponibilites;
+	private String	telephone;
 
 }
