@@ -1,7 +1,6 @@
 package boldair.data;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

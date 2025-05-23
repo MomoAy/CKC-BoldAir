@@ -22,8 +22,10 @@ public class Evenement {
 	private int nbRepas;
 	private int nbreParticipants;
 	private Date dateEvenement;
+	private Date dateLimiteInscription;
 	private String lieu;
 	private Time heure;
 	private int tarifRepas;
+	
 	
 }

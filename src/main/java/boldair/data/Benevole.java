@@ -6,22 +6,16 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode( of = "id_ben" )
+@EqualsAndHashCode( of = "idBen" )
 public class Benevole {
 
 	@Id
-	private Long id_ben;
-
+	private Long idBen;
 	private String type;
-
-	private String nom_ben;
-
+	private String nomBen;
 	private String prenom;
-
 	private String email;
-
 	private String disponibilites;
-
 	private String telephone;
 
 }
