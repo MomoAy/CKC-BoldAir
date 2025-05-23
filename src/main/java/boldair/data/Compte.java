@@ -21,7 +21,6 @@ public class Compte {
 	@Id
 	private Long	idCompte;
 	private String	pseudo;
-	@Transient
 	private String	motDePasse;
 	private String	empreinteMdp;
 	private String	email;
