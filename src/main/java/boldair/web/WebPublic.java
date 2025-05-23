@@ -1,10 +1,18 @@
 package boldair.web;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import boldair.dao.DaoEvenement;
+import boldair.data.Evenement;
 
 @Controller
 public class WebPublic {
+	
+	private DaoEvenement daoEvenement;
 
 	// -------
 	// Endpoints
@@ -32,6 +40,13 @@ public class WebPublic {
 	@GetMapping( "/qui-sommes-nous" )
 	public String quiSommesNous() {
 		return "public/qui-sommes-nous";
+	}
+	
+	@GetMapping("/all-event")
+	public String getAllEvent(Model model) {
+		List<Evenement> items = daoEvenement.findEvenementsActifs();
+		model.addAttribute( "list", items );
+		return "/all-evenements";
 	}
 
 }
