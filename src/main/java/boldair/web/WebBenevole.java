@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class WebBenevole {
 
     private final DaoBenevole daoBenevole;
-    
+
     @ModelAttribute
 	public Paging getPaging( @ModelAttribute( "pagingBenevole" ) Paging paging ) {
 		return paging;
@@ -47,6 +47,7 @@ public class WebBenevole {
 
 	}
 
+
 	// -------
 	// list() - GET
 
@@ -57,8 +58,9 @@ public class WebBenevole {
 	}
 
 
+
 	// -------
-		// list() - POST
+	// list() - POST
 
 		@PostMapping( "/list" )
 		public String list() {
