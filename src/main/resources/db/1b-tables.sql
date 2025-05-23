@@ -29,7 +29,6 @@ CREATE TABLE Poste (
    nom VARCHAR(50) NOT NULL,
    description VARCHAR(256) NOT NULL,
    heure TIME,
-   nb_benevole INT,
    PRIMARY KEY(id_p)
 );
 
