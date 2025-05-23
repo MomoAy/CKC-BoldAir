@@ -15,9 +15,5 @@ public class Benevole {
 	
 	@Id
 	private Long idBenevole;
-	private String nom;
-	private String catégorie;
-	private String dossart;
-	private String Etat;
 	
 }
