@@ -38,9 +38,13 @@ public class WebPublic {
 	public String inscription() {
 		return "public/inscription";
 	}
-	@GetMapping( "/bénévole" )
+	@GetMapping( "/benevole" )
 	public String bénévole() {
-		return "public/bénévole";
+		return "public/benevole";
+	}
+	@GetMapping( "/dashbord" )
+	public String dashbord() {
+		return "public/dashbord";
 	}
 
 }

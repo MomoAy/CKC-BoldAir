@@ -63,26 +63,30 @@
             <li class="nav-item" sec:authorize="hasRole('ADMIN')">
               <a th:href="@{/compte/list}" class="nav-link">Comptes</a>
             </li>
-
+            <li>
+              <a th:href="@{/}" class="nav-link">Accueil</a>
+            </li>
+            <li>
+              <a th:href="@{/inscription}" class="nav-link">inscription</a>
+            </li>
+            <li>
+              <a th:href="@{/benevole}" class="nav-link">bénévole</a>
+            </li>
+            <li>
+              <a th:href="@{/dashbord}" class="nav-link">dashbord</a>
+            </li>
             <!-- Liste déroulante A Propos -->
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">A propos</a>
               <ul class="dropdown-menu">
-                <li>
-                  <a th:href="@{/}" class="dropdown-item">Accueil</a>
-                </li>
+
                 <li>
                   <a th:href="@{/qui-sommes-nous}" class="dropdown-item">Qui sommes-nous ?</a>
                 </li>
                 <li>
                   <a th:href="@{/mentions-legales}" class="dropdown-item">Mentions légales</a>
                 </li>
-                <li>
-                  <a th:href="@{/inscription}" class="dropdown-item">inscription</a>
-                </li>
-                <li>
-                  <a th:href="@{/bénévole}" class="dropdown-item">bénévole</a>
-                </li>
+
               </ul>
             </li> <!-- Fin Liste déroulante A Propos -->
 
