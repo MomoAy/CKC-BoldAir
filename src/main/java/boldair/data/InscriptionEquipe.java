@@ -1,8 +1,5 @@
 package boldair.data;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,5 +15,5 @@ public class InscriptionEquipe {
 	private Long idEquipe;
 	private Long idEvenement;
 	private String dateInscription;
-	
+
 }

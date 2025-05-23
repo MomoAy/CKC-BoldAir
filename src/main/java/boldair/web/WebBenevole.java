@@ -7,21 +7,28 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/benevole")
+@SessionAttributes("PagingBenevole")
 public class WebBenevole {
 
     private final DaoBenevole daoBenevole;
     
+    @ModelAttribute
+	public Paging getPaging( @ModelAttribute( "pagingBenevole" ) Paging paging ) {
+		return paging;
+	}
+
     @PostMapping( "/list/content" )
 	public String getListContent( Paging paging, Model model ) {
 
@@ -36,10 +43,10 @@ public class WebBenevole {
 		model.addAttribute( "list", page.getContent() );
 		model.addAttribute( "totalItems", page.getTotalElements() );
 		model.addAttribute( "totalPages", page.getTotalPages() );
-		return "plat/list :: #dynamic_view";
+		return "benevole/list :: #dynamic_view";
 
 	}
-    
+
 	// -------
 	// list() - GET
 
@@ -49,24 +56,24 @@ public class WebBenevole {
 		return "benevole/list";
 	}
 
-	
+
 	// -------
 		// list() - POST
 
 		@PostMapping( "/list" )
 		public String list() {
-			return "redirect:/plat/list";
+			return "redirect:/benevole/list";
 		}
-		
+
     //@GetMapping("/list")
     //public String afficherListeBenevoles(Model model) {
-      //  Page<Benevole> page = daoBenevole.findAllByOrderByNom(Pageable.unpaged());
+      //  Page<Benevole> page = daoBenevole.findAllByOrderByNomBen(Pageable.unpaged());
         //model.addAttribute("Benevole", page.getContent());
         //model.addAttribute("pagingBenevole", page); // Utile pour la pagination dans Thymeleaf
         //return "benevole/list";
     //}
-    
-    
+
+
     private Page<Benevole> getPage( Paging paging ) {
 		Page<Benevole> page;
 		var pageable = PageRequest.of( paging.getPageNum() - 1, paging.getPageSize(), Sort.by("nom") );
@@ -74,7 +81,7 @@ public class WebBenevole {
 		if(paging.getSearch().isBlank()) {
 			page = daoBenevole.findAll( pageable );
 		} else {
-			page = daoBenevole.findByNomContainingIgnoreCase(paging.getSearch(), pageable );
+			page = daoBenevole.findByNomBenContainingIgnoreCase(paging.getSearch(), pageable );
 		}
 
 		return page;

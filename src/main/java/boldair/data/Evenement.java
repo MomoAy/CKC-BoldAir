@@ -26,6 +26,5 @@ public class Evenement {
 	private String lieu;
 	private Time heure;
 	private int tarifRepas;
-	
-	
+		
 }
