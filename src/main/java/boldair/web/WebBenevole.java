@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/benevole")
+@RequestMapping( "/benevole" )
 public class WebBenevole {
 
-    private final DaoBenevole daoBenevole;
+	private final DaoBenevole daoBenevole;
 
-    @GetMapping("/list")
-    public String afficherListeBenevoles(Model model) {
-        Page<Benevole> page = daoBenevole.findAllByOrderByNom(Pageable.unpaged());
-        model.addAttribute("Benevole", page.getContent());
-        model.addAttribute("pagingBenevole", page); // Utile pour la pagination dans Thymeleaf
-        return "benevole/list";
-    }
+	@GetMapping( "/list" )
+	public String afficherListeBenevoles( Model model ) {
+		Page<Benevole> page = daoBenevole.findAllByOrderByNomBen( Pageable.unpaged() );
+		model.addAttribute( "Benevole", page.getContent() );
+		model.addAttribute( "pagingBenevole", page ); // Utile pour la pagination dans Thymeleaf
+		return "benevole/list";
+	}
 
 }

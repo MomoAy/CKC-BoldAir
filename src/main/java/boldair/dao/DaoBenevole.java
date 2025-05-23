@@ -9,6 +9,6 @@ import boldair.data.Benevole;
 public interface DaoBenevole extends CrudRepository<Benevole, Long> {
 
 	// Cette méthode utilise une convention de nom Spring Data JPA
-	Page<Benevole> findAllByOrderByNom( Pageable pageable );
+	Page<Benevole> findAllByOrderByNomBen( Pageable pageable );
 
 }
