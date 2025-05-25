@@ -1,0 +1,35 @@
+<!-- templates/benevole/list.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Liste des Bénévoles</title>
+</head>
+
+<body>
+
+  <!-- Utilise le layout général et injecte ton contenu ici -->
+  <div th:replace="~{_fragments/layout :: content}">
+
+    <h1>Liste des Bénévoles</h1>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="b : ${Benevole}">
+          <td th:text="${b.nom}">Nom</td>
+          <td th:text="${b.prenom}">Prénom</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+
+</html>
