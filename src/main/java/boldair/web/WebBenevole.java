@@ -62,10 +62,10 @@ public class WebBenevole {
 	// -------
 	// list() - POST
 
-		@PostMapping( "/list" )
-		public String list() {
-			return "redirect:/benevole/list";
-		}
+	@PostMapping( "/list" )
+	public String list() {
+		return "redirect:/benevole/list";
+	}
 
     //@GetMapping("/list")
     //public String afficherListeBenevoles(Model model) {
@@ -75,6 +75,7 @@ public class WebBenevole {
         //return "benevole/list";
     //}
 
+	
 
     private Page<Benevole> getPage( Paging paging ) {
 		Page<Benevole> page;

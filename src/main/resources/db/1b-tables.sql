@@ -62,6 +62,7 @@ CREATE TABLE Evenement (
    date_evenement DATE NOT NULL,
    lieu VARCHAR(100) NOT NULL,
    heure TIME,
+	date_limite_inscription DATE NOT NULL,
    tarif_repas NUMERIC(9,2) NOT NULL,
    PRIMARY KEY(id_ev)
 );

@@ -15,9 +15,9 @@ public interface DaoEvenement extends CrudRepository<Evenement, Long>, PagingAnd
 	Page<Evenement> findByNomContainingIgnoreCase( String search, Pageable pageable );
 	
 	
-	@Query("SELECT COUNT(*) = 0 FROM plat where nom = :nom AND id_plat <> COALESCE(:id, 0)")
+	@Query("SELECT COUNT(*) = 0 FROM evenement where nom = :nom AND id_ev <> COALESCE(:id, 0)")
 	boolean verifierUniciteNom(String nom, Long id);
 	
-	@Query("SELECT * FROM Evenement WHERE date_limite_inscription > CURRENT_DATE")
+	@Query("SELECT * FROM evenement WHERE date_limite_inscription > CURRENT_DATE")
 	List<Evenement> findEvenementsActifs();
 }
