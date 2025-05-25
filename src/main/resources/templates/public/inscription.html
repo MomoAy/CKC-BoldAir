@@ -1,0 +1,208 @@
+<!doctype html>
+<html th:with="tabTitle='inscription'" lang="fr">
+
+
+<head th:replace="~{_fragments/layout :: head(${tabTitle})}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../static/css/styles.css" />
+</head>
+
+<body>
+  <!-- -->
+  <!-- En-tête de page - barre de navigation -->
+  <!-- -->
+  <header th:replace="~{_fragments/layout :: header }"></header>
+
+  <section class="inscription">
+    <form action="inscription.html" method="POST">
+      <h1>Formulaire d'inscription</h1>
+
+      <!-- SECTION CAPITAINE -->
+      <div class="section">
+        <h2>Capitaine</h2>
+        <div class="row">
+          <div class="column">
+            <label>Nom</label>
+            <input type="text" name="nom_capitaine" required>
+          </div>
+          <div class="column">
+            <label>Prénom</label>
+            <input type="text" name="prenom_capitaine" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <label for="naissance_capitaine">Date de naissance</label>
+            <input type="date" id="naissance_capitaine" name="naissance_capitaine" required
+              onchange="verifierAge('capitaine')">
+          </div>
+          <div class="column">
+            <label>Numéro de téléphone</label>
+            <input type="tel" name="tel_capitaine" required>
+          </div>
+        </div>
+
+        <label>Adresse</label>
+        <input type="text" name="adresse_capitaine">
+
+        <label>Adresse mail</label>
+        <input type="email" name="email_capitaine">
+
+        <label>Certificat médical</label>
+        <input type="file" name="certificat_capitaine" class="file-input">
+
+        <div id="autorisation_capitaine_container" style="display: none;">
+          <label for="autorisation_capitaine">Autorisation parentale (capitaine mineur)</label>
+          <input type="file" name="autorisation_capitaine" id="autorisation_capitaine">
+        </div>
+        <label for="evenement">Choisissez l'événement</label>
+        <select name="evenement" id="evenement" required>
+          <option value="">-- Sélectionnez un événement --</option>
+          <option value="canoe_jeune">Bol d’Air</option>
+          <option value="slalom_regional">mini Bol d’Air</option>
+          <option value="descente">Bol découverte</option>
+        </select>
+      </div>
+
+      <!-- SECTION EQUIPIER -->
+      <div class="section">
+        <h2>Équipier</h2>
+        <div class="row">
+          <div class="column">
+            <label>Nom</label>
+            <input type="text" name="nom_equipier" required>
+          </div>
+          <div class="column">
+            <label>Prénom</label>
+            <input type="text" name="prenom_equipier" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <label for="naissance_equipier">Date de naissance</label>
+            <input type="date" id="naissance_equipier" name="naissance_equipier" required
+              onchange="verifierAge('equipier')">
+          </div>
+          <div class="column">
+            <label>Numéro de téléphone</label>
+            <input type="tel" name="tel_equipier" required>
+          </div>
+        </div>
+
+        <label>Adresse</label>
+        <input type="text" name="adresse_equipier">
+
+        <label>Adresse mail</label>
+        <input type="email" name="email_equipier">
+
+        <label>Certificat médical</label>
+        <input type="file" name="certificat_equipier" class="file-input">
+
+        <div id="autorisation_equipier_container" style="display: none;">
+          <label for="autorisation_equipier">Autorisation parentale (équipier mineur)</label>
+          <input type="file" name="autorisation_equipier" id="autorisation_equipier">
+        </div>
+      </div>
+      <!-- Accès à la charte -->
+      <div style="margin-top: 25px;">
+        <label>
+          <strong>Charte de confidentialité :</strong><br>
+          <a href="#" onclick="afficherCharte(); return false;">Lire la charte de confidentialité de l'organisation</a>
+        </label>
+        <input type="hidden" id="accordCharte" name="accordCharte" value="non">
+      </div>
+
+      <button type="submit">Envoyer l'inscription</button>
+
+      <button type="submit" class="btn">VALIDER</button>
+    </form>
+  </section>
+
+  <!-- -->
+  <!-- Pied de page -->
+  <!-- -->
+  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
+
+
+
+  <!-- Scripts définis dans le layout -->
+  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
+  <script>
+    function verifierAge(role) {
+      const naissanceInput = document.getElementById("naissance_" + role);
+      const autorisationContainer = document.getElementById("autorisation_" + role + "_container");
+
+      if (!naissanceInput || !naissanceInput.value) return;
+
+      const aujourdHui = new Date();
+      const naissance = new Date(naissanceInput.value);
+
+      let age = aujourdHui.getFullYear() - naissance.getFullYear();
+      const mois = aujourdHui.getMonth() - naissance.getMonth();
+      if (mois < 0 || (mois === 0 && aujourdHui.getDate() < naissance.getDate())) {
+        age--;
+      }
+
+      // Affiche ou cache l'autorisation selon l'âge
+      if (age < 18) {
+        autorisationContainer.style.display = "block";
+      } else {
+        autorisationContainer.style.display = "none";
+      }
+    }
+  </script>
+
+  <!-- Modale (popup) -->
+  <div id="charteModal"
+    style="display:none; position:fixed; top:10%; left:10%; width:80%; height:70%; background:white; border:1px solid #ccc; padding:20px; overflow:auto; box-shadow: 0 0 10px #000;">
+    <h2>Charte de confidentialité</h2>
+    <pre id="contenuCharte" style="white-space: pre-wrap; font-size: 14px;"></pre>
+
+    <div style="margin-top: 20px;">
+      <button onclick="accepterCharte()"
+        style="background-color: green; color: white; padding: 8px 16px; border: none; cursor: pointer;">Accepter</button>
+      <button onclick="fermerCharte()" style="margin-left: 10px;">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    function afficherCharte() {
+      fetch("charte.txt")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("contenuCharte").textContent = data;
+          document.getElementById("charteModal").style.display = "block";
+        })
+        .catch(err => {
+          alert("Erreur lors du chargement de la charte.");
+        });
+    }
+
+    function fermerCharte() {
+      document.getElementById("charteModal").style.display = "none";
+    }
+
+    function accepterCharte() {
+      document.getElementById("accordCharte").value = "oui";
+      document.getElementById("charteModal").style.display = "none";
+      alert("Merci, vous avez accepté la charte.");
+    }
+
+    // Empêche l'envoi du formulaire si la charte n'est pas acceptée
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function (e) {
+        const accord = document.getElementById("accordCharte").value;
+        if (accord !== "oui") {
+          e.preventDefault();
+          alert("Veuillez lire et accepter la charte de confidentialité avant de valider.");
+        }
+      });
+    });
+  </script>
+
+
+</body>

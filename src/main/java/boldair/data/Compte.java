@@ -1,7 +1,6 @@
 package boldair.data;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +20,6 @@ public class Compte {
 	@Id
 	private Long	idCompte;
 	private String	pseudo;
-	@Transient
 	private String	motDePasse;
 	private String	empreinteMdp;
 	private String	email;
