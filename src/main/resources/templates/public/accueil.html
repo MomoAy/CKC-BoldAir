@@ -81,87 +81,7 @@
 
 
   <!--STYLES -->
-  <style>
-    .slider-container {
-      overflow: hidden;
-      position: relative;
-    }
 
-    .slider {
-      /* centre les cartes horizontales et permet le scroll */
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      /* espace entre les cards */
-      transition: transform 0.3s ease-in-out;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding-bottom: 1rem;
-      /* pour dégager la barre de progression */
-    }
-
-    .card {
-      min-width: 250px;
-      margin: 0 10px;
-      text-align: center;
-      flex-shrink: 0;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover,
-    .card:focus-within {
-      transform: scale(1.05);
-      /* Agrandit la carte à 105% */
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      /* Ajoute une ombre plus marquée */
-      z-index: 1;
-      /* S'assure que la carte est au-dessus des autres pendant le hover */
-    }
-
-
-
-    .card img {
-      width: 100%;
-      border-radius: 10px;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .arrow {
-      position: absolute;
-      top: 40%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      font-size: 24px;
-      border: none;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      z-index: 2;
-    }
-
-    .arrow.left {
-      left: 0;
-    }
-
-    .arrow.right {
-      right: 0;
-    }
-
-    .progress-bar {
-      height: 4px;
-      background: #ccc;
-      margin-top: 10px;
-      position: relative;
-    }
-
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: blue;
-      transition: width 0.3s;
-    }
-  </style>
 
   <!-- SCRIPT -->
   <script>
@@ -197,12 +117,12 @@
   <section class="py-5" style="background-color:#28a745; color:#fff;">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-12 col-md-6 order-md-2 text-end">
+        <div class="col-12 col-md-10 order-md-2 text-end">
           <img src="/img/Design.png" alt="Affiche Bol d’air 2025"
             style="max-width:300px; width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
         </div>
-        <div class="col-12 col-md-6 order-md-1">
-          <h2 class="display-5 mb-4">Raid – Bol d’air 2025</h2>
+        <div class="col-20 col-md-15 order-md-1">
+          <h2 style="background-color: #28a745;" class="display-5 mb-4">Raid – Bol d’air 2025</h2>
           <p class="lead mb-4">
             Le <strong>Bol d’air 2025</strong> se tiendra le
             <strong class="text-white">dimanche 6 juillet 2025</strong>.

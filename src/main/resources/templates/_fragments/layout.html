@@ -56,6 +56,15 @@
             <li class="nav-item" sec:authorize="hasRole('ADMIN')">
               <a th:href="@{/compte/list}" class="nav-link text-dark">Comptes</a>
             </li>
+            <li>
+              <a th:href="@{/inscription}" class="nav-link">inscription</a>
+            </li>
+            <li>
+              <a th:href="@{/benevole}" class="nav-link">bénévole</a>
+            </li>
+            <li>
+              <a th:href="@{/dashbord}" class="nav-link">dashbord</a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">À propos</a>
               <ul class="dropdown-menu">
