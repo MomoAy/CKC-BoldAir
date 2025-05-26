@@ -46,5 +46,6 @@ public class WebPublic {
 	public String dashbord() {
 		return "public/dashbord";
 	}
+	
 
 }

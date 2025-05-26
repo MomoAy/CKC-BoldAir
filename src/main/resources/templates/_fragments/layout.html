@@ -51,30 +51,41 @@
 
             <!-- Liste déroulante Gestion -->
             <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Gestion</a>
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Gestion des comptes</a>
               <ul class="dropdown-menu">
+                <li>
+                  <a th:href="@{/compte/gestion_benevole}" class="dropdown-item">Gestion des bénévoles</a>
+                </li>
+                <li>
+                  <a th:href="@{/compte/gestion_participant}" class="dropdown-item">Gestion
+                    des partipants</a>
+                </li>
+                <li>
+                  <a th:href="@{/compte/gestion_équipe}" class="dropdown-item">Gestion
+                    des équipes</a>
+                </li>
                 <li>
                   <a th:href="@{/compte/list}" class="dropdown-item">Comptes</a>
                 </li>
-              </ul>
-            </li> <!-- Fin Liste déroulante Gestion -->
+              </ul><!--Fin Liste déroulante Gestion -->
+            </li> <!--  <ul class="dropdown-menu">
+                  <li>
+                    <a th:href="@{/compte/list}" class="dropdown-item">Comptes</a>
+                  </li>
+                </ul>Fin Liste déroulante Gestion -->
 
             <!-- Item de menu simple -->
-            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-              <a th:href="@{/compte/list}" class="nav-link">Comptes</a>
-            </li>
-            <li>
+
+            <li sec:authorize="isAnonymous()">
               <a th:href="@{/}" class="nav-link">Accueil</a>
             </li>
-            <li>
+            <li sec:authorize="isAnonymous()">
               <a th:href="@{/inscription}" class="nav-link">inscription</a>
             </li>
-            <li>
+            <li sec:authorize="isAnonymous()">
               <a th:href="@{/benevole}" class="nav-link">bénévole</a>
             </li>
-            <li>
-              <a th:href="@{/dashbord}" class="nav-link">dashbord</a>
-            </li>
+
             <!-- Liste déroulante A Propos -->
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">A propos</a>
