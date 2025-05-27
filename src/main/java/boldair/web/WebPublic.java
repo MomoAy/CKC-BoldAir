@@ -19,7 +19,7 @@ import boldair.util.Alert;
 @Controller
 public class WebPublic {
 
-	private DaoEvenement daoEvenement;
+	private final DaoEvenement daoEvenement;
 	private DaoBenevole daoBenevole;
 
 	// -------
@@ -66,44 +66,47 @@ public class WebPublic {
 		model.addAttribute( "list", items );
 		return "/all-evenements";
 	}
-
+	
+	
 	@GetMapping( path = "/add-extern-ben" )
-		public String edit( Long id, Model model ) {
+	public String edit( Long id, Model model ) {
 
-			Benevole item;
+		Benevole item;
 
+		
+		if ( id == null ) {
+			item = new Benevole();
+		} else {
+			item = daoBenevole.findById( id ).get();
+		}
 
-			if ( id == null ) {
-				item = new Benevole();
-			} else {
-				item = daoBenevole.findById( id ).get();
-			}
+		model.addAttribute( "item", item );
+		return "plat/form";
 
+	}
+
+	// -------
+	// save()
+
+	@PostMapping( "/form" )
+	public String save(
+			 @ModelAttribute( "item" ) Benevole item,
+			RedirectAttributes ra, Model model, BindingResult result ) {
+
+		if(daoBenevole.verifierUniciteNom( item.getNomBen(), item.getIdBen() )) {
+			daoBenevole.save( item );
+			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Mise à jour effectuée avec succès" ) );
+			return "redirect:/plat/list";
+		} else {
 			model.addAttribute( "item", item );
+			model.addAttribute( "typePlats", daoBenevole.findAll() );
+			result.rejectValue( "nom", "", "Ce nom est déjà utilisé" );
 			return "plat/form";
-
 		}
+		
 
-		// -------
-		// save()
+	}
 
-		@PostMapping( "/form" )
-		public String save(
-				 @ModelAttribute( "item" ) Benevole item,
-				RedirectAttributes ra, Model model, BindingResult result ) {
-
-			if(daoBenevole.verifierUniciteNom( item.getNomBen(), item.getIdBen() )) {
-				daoBenevole.save( item );
-				ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Mise à jour effectuée avec succès" ) );
-				return "redirect:/plat/list";
-			} else {
-				model.addAttribute( "item", item );
-				model.addAttribute( "typePlats", daoBenevole.findAll() );
-				result.rejectValue( "nom", "", "Ce nom est déjà utilisé" );
-				return "plat/form";
-			}
-
-
-		}
+	// hello
 
 }
