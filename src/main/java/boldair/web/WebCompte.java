@@ -78,6 +78,18 @@ public class WebCompte {
 		return "compte/list";
 
 	}
+	@GetMapping( "/gestion_participant" )
+	public String gestion_participant() {
+		return "compte/gestion_participant";
+	}
+	@GetMapping( "/gestion_équipe" )
+	public String gestion_équipe() {
+		return "compte/gestion_équipe";
+	}
+	@GetMapping( "/gestion_benevole" )
+	public String gestion_benevole() {
+		return "compte/gestion_benevole";
+	}
 
 	// -------
 	// list() - POST

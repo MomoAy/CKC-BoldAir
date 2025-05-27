@@ -3,7 +3,7 @@
 @import url(../lib/fontawesome/css/all.min.css);
 
 /* classe nospin - supprime le spinner das champs de type number */
-/*-------*/
+/-------/
 /* Chrome, Safari, Edge, Opera */
 input.nospin::-webkit-outer-spin-button,
 input.nospin::-webkit-inner-spin-button {

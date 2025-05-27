@@ -9,7 +9,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+#https://chatgpt.com/canvas/shared/682ee4a5f99c8191a0e718a8f2dd98b2
 ### STS ###
 .apt_generated
 .classpath

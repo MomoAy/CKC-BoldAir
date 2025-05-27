@@ -19,8 +19,8 @@ import boldair.util.Alert;
 @Controller
 public class WebPublic {
 
-	private DaoEvenement daoEvenement;
-	private DaoBenevole daoBenevole;
+	private DaoEvenement	daoEvenement;
+	private DaoBenevole		daoBenevole;
 
 	// -------
 	// Endpoints
