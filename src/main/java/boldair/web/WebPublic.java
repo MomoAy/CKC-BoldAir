@@ -49,60 +49,29 @@ public class WebPublic {
 	public String quiSommesNous() {
 		return "public/qui-sommes-nous";
 	}
-	
-	
-	 
-	  //@GetMapping( "/inscription" ) public String inscription() { return
-	  //"public/inscription"; }
-	 
-	  @GetMapping( "/benevole" ) public String bénévole() { return
-	  "public/benevole"; }
-	 
-	  @GetMapping( "/dashbord" ) public String dashbord() { return
-	  "public/dashbord"; } 
-	 
-	  @GetMapping("/all-event") public String getAllEvent(Model model) {
-	  List<Evenement> items = daoEvenement.findEvenementsActifs();
-	  model.addAttribute( "list", items ); return "/all-evenements"; } 
-	  
-	  
-	  @GetMapping( path = "/add-extern-ben" )
-		public String edit( Long id, Model model ) {
 
-			Benevole item;
+	@GetMapping( "/inscription" )
+	public String inscription() {
+		return "public/inscription";
+	}
 
-			
-			if ( id == null ) {
-				item = new Benevole();
-			} else {
-				item = daoBenevole.findById( id ).get();
-			}
+	@GetMapping( "/benevole" )
+	public String bénévole() {
+		return "public/benevole";
+	}
 
-			model.addAttribute( "item", item );
-			return "plat/form";
+	@GetMapping( "/dashbord" )
+	public String dashbord() {
+		return "public/dashbord";
+	}
 
-		}
+	@GetMapping( "/all-event" )
+	public String getAllEvent( Model model ) {
+		List<Evenement> items = daoEvenement.findEvenementsActifs();
+		model.addAttribute( "list", items );
+		return "/all-evenements";
+	}
 
-		// -------
-		// save()
+	// hello
 
-		@PostMapping( "/form" )
-		public String save(
-				 @ModelAttribute( "item" ) Benevole item,
-				RedirectAttributes ra, Model model, BindingResult result ) {
-
-			if(daoBenevole.verifierUniciteNom( item.getNomBen(), item.getIdBen() )) {
-				daoBenevole.save( item );
-				ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Mise à jour effectuée avec succès" ) );
-				return "redirect:/plat/list";
-			} else {
-				model.addAttribute( "item", item );
-				model.addAttribute( "typePlats", daoBenevole.findAll() );
-				result.rejectValue( "nom", "", "Ce nom est déjà utilisé" );
-				return "plat/form";
-			}
-			
-
-		}
-	
 }
