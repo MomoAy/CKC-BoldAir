@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<!-- -->
-<!-- Fragment Head -->
-<!-- -->
-
 <head th:fragment="head(titre)">
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,44 +8,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.png}" />
-  <title th:text="(${! #strings.isEmpty(titre)} ?  ${titre} + ' - ' : '' ) + 'La Cantine'">La Cantine</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}" />
-  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
-</head> <!-- Fin Fragment Head -->
 
+  <title th:text="(${! #strings.isEmpty(titre)} ?  ${titre} + ' - ' : '' ) + 'La Cantine'">La Cantine</title>
+
+  <!-- 1) Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/lib/bootstrap/bootstrap.min.css}" />
+  <!-- 2) Votre CSS perso -->
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+</head>
 
 <body>
 
-  <!--  -->
   <!-- Fragment En-tête de page - Barre de navigation -->
-  <!--  -->
   <header th:fragment="header" class="sticky-top">
-
-    <!-- Barre de navigation -->
-    <nav class="p-0 navbar navbar-expand-md bg-info xnavbar-dark">
-      <div class=" container-fluid">
+    <nav class="navbar navbar-expand-md navbar-light py-3 shadow" style="background-color: #7ec8e3;">
+      <div class="container-fluid">
 
         <!-- Logo et nom du site -->
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
           <picture>
-            <source media="(max-width: 768px)" th:srcset="@{/img/logo-carre-28.png}">
-            <img class="img-fluid" th:src="@{/img/logo-carre-40.png}">
+            <source media="(max-width: 768px)" th:srcset="@{/img/logo.png}">
+            <img th:src="@{/img/logo.png}" class="img-fluid" style="width: 80px; height: auto; border-radius: 12px;" />
           </picture>
-          <span class="xtext-primary xfw-bold" style="color: navy;">CKC • Bol d'Air</span>
+          <span class="ms-2 fw-bold" style="color: #002e5b; font-size: 1.25rem;">
+            CKC • Bol d'Air
+          </span>
         </a>
 
         <!-- Bouton menu -->
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu1">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu1"
+          aria-controls="menu1" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Section escamotable de la barre de navigation -->
         <div class="collapse navbar-collapse" id="menu1">
-
-          <!-- Partie gauche de la section escamotable -->
           <ul class="navbar-nav">
-
-            <!-- Liste déroulante Gestion -->
             <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Gestion des comptes</a>
               <ul class="dropdown-menu">
@@ -85,10 +80,20 @@
             <li sec:authorize="isAnonymous()">
               <a th:href="@{/benevole}" class="nav-link">bénévole</a>
             </li>
-
-            <!-- Liste déroulante A Propos -->
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+              <a th:href="@{/compte/list}" class="nav-link text-dark">Comptes</a>
+            </li>
+            <li>
+              <a th:href="@{/inscription}" class="nav-link">inscription</a>
+            </li>
+            <li>
+              <a th:href="@{/benevole}" class="nav-link">bénévole</a>
+            </li>
+            <li>
+              <a th:href="@{/dashbord}" class="nav-link">dashbord</a>
+            </li>
             <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">A propos</a>
+              <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">À propos</a>
               <ul class="dropdown-menu">
 
                 <li>
@@ -99,20 +104,16 @@
                 </li>
 
               </ul>
-            </li> <!-- Fin Liste déroulante A Propos -->
+            </li>
+          </ul>
 
-          </ul> <!-- Fin Partie gauche de la section escamotable -->
-
-          <!-- Partie droite de la section escamotable -->
-          <ul class=" navbar-nav ms-auto">
-
-            <!-- Liste déroulante Utilisateur -->
-            <li class="nav-item dropdown text-md-end" style="min-width: 8rem;">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi-person-circle">&nbsp;</i>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown text-end" style="min-width: 8rem;">
+              <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">
+                <i class="bi-person-circle"></i>
                 <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu dropdown-menu-end">
                 <li sec:authorize="isAnonymous()">
                   <a th:href="@{/connexion}" class="dropdown-item">Se connecter</a>
                 </li>
@@ -120,31 +121,39 @@
                   <a th:href="@{/logout?continue}" class="dropdown-item">Déconnexion</a>
                 </li>
               </ul>
-            </li> <!-- Fin Liste déroulante Utilisateur -->
-          </ul> <!-- Fin Partie droite de la section escamotable -->
+            </li>
+          </ul>
+        </div>
 
-        </div> <!-- Fin Section escamotable de la barre de navigation -->
+      </div>
+    </nav>
+  </header>
 
-      </div> <!-- Fin container-fluid -->
-    </nav> <!-- Fin Barre de navigation -->
-  </header> <!-- Fin Fragment En-tête de page - Barre de naviation -->
+  <!-- … contenu de la page … -->
 
-
-  <!--  -->
   <!-- Fragment Pied de page -->
-  <!--  -->
-  <footer th:fragment="footer" class="bg-secondary text-bg-dark py-4 text-center">
-    &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] • CKC • Bol d'Air
-    <br><br>
-  </footer> <!-- Fin Fragment Pied de page -->
+  <footer th:fragment="footer" class="py-4 text-center shadow-top" style="background-color: #7ec8e3; color: #002e5b;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4 mb-3 mb-md-0">
+          <a th:href="@{/mentions-legales}" class="text-decoration-none text-dark">Mentions légales</a>
+        </div>
+        <div class="col-12 col-md-4 mb-3 mb-md-0">
+          &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] • CKC • Bol d'Air
+        </div>
+        <div class="col-12 col-md-4">
+          <a href="#" class="me-3 text-dark"><i class="bi-facebook fs-5"></i></a>
+          <a href="#" class="me-3 text-dark"><i class="bi-instagram fs-5"></i></a>
+          <a href="#" class="text-dark"><i class="bi-twitter fs-5"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-
-  <!--  -->
   <!-- Fragment Scripts définis dans le layout -->
-  <!--  -->
   <th:block th:fragment="bottom-scripts">
     <script th:src="@{/lib/bootstrap/bootstrap.bundle.min.js}"></script>
-  </th:block> <!-- Fin Fragment Scripts définis dans le layout -->
+  </th:block>
 
 </body>
 

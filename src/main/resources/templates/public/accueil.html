@@ -2,36 +2,150 @@
 <html th:with="tabTitle='Accueil'" lang="fr">
 
 <head th:replace="~{_fragments/layout :: head(${tabTitle})}">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/styles.css" />
+  <meta charset="UTF-8"> <!-- encodage UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+  <link rel="stylesheet" href="../../static/css/styles.css" /> <!-- stylesheet -->
 </head>
 
 <body>
 
-  <!-- -->
   <!-- En-tête de page - barre de navigation -->
-  <!-- -->
-  <header th:replace="~{_fragments/layout :: header }"></header>
+  <header th:replace="~{_fragments/layout :: header }"></header> <!-- navbar -->
 
-  <!-- -->
   <!-- Contenu de la page -->
-  <!-- -->
-  <section class="container my-3">
+  <!-- SECTION 1: Hero avec image en arrière-plan -->
+  <section id="hero" class="position-relative text-white d-flex align-items-center justify-content-center" th:style="|
+      background-image: url('@{/img/favicon.png}');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+    |">
 
-    <div class="col-12 col-sm-6 my-3 mx-auto text-center">
-      <img class="img-fluid" th:src="@{/img/boldair.jpg}" style="max-width: 320px;">
-    </div> <!-- Fin Colonne 2 -->
+    <!-- Conteneur du texte avec positionnement personnalisé -->
+    <div class="text-center" style="margin-top: -150px;">
+      <h1 class="display-3 fw-bold">CKC Canoë</h1> <!-- titre -->
+      <p class="lead">Sport, tourisme & apprentissage</p> <!-- slogan -->
+    </div>
+  </section>
 
-  </section> <!-- Fin Contenu de la page -->
 
-  <!-- -->
+  <!-- SECTION SCROLLABLE AVEC FLECHES + BARRE -->
+  <section style="padding: 2rem; background: #fff;">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-2">LES ACTIVITÉS DE CKC</h2>
+      <p class="text-center mb-4">Découvrez nos activités : sport, tourisme et apprentissage en canoë.</p>
+
+      <div class="slider-container position-relative">
+        <!-- Conteneur des cartes -->
+        <div class="slider d-flex justify-content-center" id="slider">
+          <div class="card mx-2">
+            <img src="/img/sport1.jpeg" class="card-img-top" alt="Sport en canoë">
+            <div class="card-body text-center">
+              <p class="mb-0">Sport en canoë</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/tourisme.jpeg" class="card-img-top" alt="Tourisme en rivière">
+            <div class="card-body text-center">
+              <p class="mb-0">Tourisme en rivière</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/apprentissage.jpeg" class="card-img-top" alt="Cours d'apprentissage">
+            <div class="card-body text-center">
+              <p class="mb-0">Apprentissage en club</p>
+            </div>
+          </div>
+
+          <div class="card mx-2">
+            <img src="/img/actus.jpeg" class="card-img-top" alt="Actualités et offres">
+            <div class="card-body text-center">
+              <p class="mb-0">Actualités et offres</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flèches -->
+        <button class="arrow left" onclick="scrollSlider(-1)">&#10094;</button>
+        <button class="arrow right" onclick="scrollSlider(1)">&#10095;</button>
+
+        <!-- Barre de progression -->
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!--STYLES -->
+
+
+  <!-- SCRIPT -->
+  <script>
+    const slider = document.getElementById('slider');
+    const progress = document.getElementById('progress');
+    const cardWidth = 320; // largeur approximative d'une carte (300px + marge)
+
+    let scrollPosition = 0;
+
+    function scrollSlider(direction) {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      scrollPosition += direction * cardWidth;
+      scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+
+      slider.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+
+      // Mise à jour de la barre de progression
+      const progressPercent = (scrollPosition / maxScroll) * 100;
+      progress.style.width = progressPercent + "%";
+    }
+  </script>
+
+
+
+
+
+
+
+  <!-- SECTION : texte à gauche / image à droite -->
+  <section class="py-5" style="background-color:#28a745; color:#fff;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-10 order-md-2 text-end">
+          <img src="/img/Design.png" alt="Affiche Bol d’air 2025"
+            style="max-width:300px; width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+        </div>
+        <div class="col-20 col-md-15 order-md-1">
+          <h2 style="background-color: #28a745;" class="display-5 mb-4">Raid – Bol d’air 2025</h2>
+          <p class="lead mb-4">
+            Le <strong>Bol d’air 2025</strong> se tiendra le
+            <strong class="text-white">dimanche 6 juillet 2025</strong>.
+          </p>
+          <a href="#" class="btn btn-light btn-lg">Haut de page</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
   <!-- Pied de page -->
-  <!-- -->
-  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
+  <footer th:replace="~{_fragments/layout :: footer}"></footer> <!-- footer -->
 
   <!-- Scripts définis dans le layout -->
-  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
+  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block> <!-- scripts -->
 
 </body>
 
