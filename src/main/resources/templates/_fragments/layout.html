@@ -46,10 +46,10 @@
         <div class="collapse navbar-collapse" id="menu1">
           <ul class="navbar-nav">
             <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Gestion des comptes</a>
+              <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">Gestion</a>
               <ul class="dropdown-menu">
                 <li>
-                  <a th:href="@{/compte/gestion_benevole}" class="dropdown-item">Gestion des bénévoles</a>
+                  <a th:href="@{/compte/list}" class="dropdown-item">Comptes</a>
                 </li>
                 <li>
                   <a th:href="@{/compte/gestion_participant}" class="dropdown-item">Gestion
@@ -60,17 +60,10 @@
                     des équipes</a>
                 </li>
                 <li>
-                  <a th:href="@{/compte/list}" class="dropdown-item">Comptes</a>
+                  <a th:href="@{/compte/gestion_benevole}" class="dropdown-item">Gestion des bénévoles</a>
                 </li>
-              </ul><!--Fin Liste déroulante Gestion -->
-            </li> <!--  <ul class="dropdown-menu">
-                  <li>
-                    <a th:href="@{/compte/list}" class="dropdown-item">Comptes</a>
-                  </li>
-                </ul>Fin Liste déroulante Gestion -->
-
-            <!-- Item de menu simple -->
-
+              </ul>
+            </li>
             <li sec:authorize="isAnonymous()">
               <a th:href="@{/}" class="nav-link">Accueil</a>
             </li>
@@ -80,29 +73,11 @@
             <li sec:authorize="isAnonymous()">
               <a th:href="@{/benevole}" class="nav-link">bénévole</a>
             </li>
-            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-              <a th:href="@{/compte/list}" class="nav-link text-dark">Comptes</a>
-            </li>
-            <li>
-              <a th:href="@{/inscription}" class="nav-link">inscription</a>
-            </li>
-            <li>
-              <a th:href="@{/benevole}" class="nav-link">bénévole</a>
-            </li>
-            <li>
-              <a th:href="@{/dashbord}" class="nav-link">dashbord</a>
-            </li>
-            <li class="nav-item dropdown">
+            <li sec:authorize="isAnonymous()" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">À propos</a>
               <ul class="dropdown-menu">
-
-                <li>
-                  <a th:href="@{/qui-sommes-nous}" class="dropdown-item">Qui sommes-nous ?</a>
-                </li>
-                <li>
-                  <a th:href="@{/mentions-legales}" class="dropdown-item">Mentions légales</a>
-                </li>
-
+                <li><a th:href="@{/qui-sommes-nous}" class="dropdown-item">Qui sommes-nous ?</a></li>
+                <li><a th:href="@{/mentions-legales}" class="dropdown-item">Mentions légales</a></li>
               </ul>
             </li>
           </ul>

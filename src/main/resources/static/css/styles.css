@@ -3,7 +3,7 @@
 @import url(../lib/fontawesome/css/all.min.css);
 
 /* classe nospin - supprime le spinner das champs de type number */
-/*-------*/
+/-------/
 /* Chrome, Safari, Edge, Opera */
 input.nospin::-webkit-outer-spin-button,
 input.nospin::-webkit-inner-spin-button {
@@ -34,231 +34,329 @@ label {
   font-weight: bold;
 }
 
-input,
-select {
+body input:not(.form-container input),
+body select:not(.form-container select) {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 10px;
+}
 
-  =======body input:not(.form-container input),
-  body select:not(.form-container select) {
-    >>>>>>>6a1e6aaa38a649ba273bce04786590d23e5046cc width: 100%;
-    padding: 6px;
-    margin-bottom: 10px;
-  }
+.row {
+  display: flex;
+  gap: 20px;
+}
 
-  .row {
-    display: flex;
-    gap: 20px;
-  }
+.column {
+  flex: 1;
+}
 
-  .column {
-    flex: 1;
-  }
+.file-input {
+  margin-top: 10px;
+}
 
-  .file-input {
-    margin-top: 10px;
-  }
+.benevole {
 
-  .benevole {
-
-    /* position: absolute;
+  /* position: absolute;
     width: 70%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -40%);*/
-    padding: 0 5%;
-    margin: 0 auto;
-    min-width: 500px;
-    width: 70%;
-  }
+  padding: 0 5%;
+  margin: 0 auto;
+  min-width: 500px;
+  width: 70%;
+}
 
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
 
-  h2 {
-    background-color: #7ec8e3;
-    color: white;
-    padding: 10px;
-  }
+h2 {
+  background-color: #7ec8e3;
+  color: white;
+  padding: 10px;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
 
-  th,
-  td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-  }
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
 
-  th {
-    background-color: #ecf0f1;
-  }
+th {
+  background-color: #ecf0f1;
+}
 
-  input[type="text"],
-  input[type="number"],
-  select {
-    width: 90%;
-    padding: 5px;
-  }
+input[type="text"],
+input[type="number"],
+select {
+  width: 90%;
+  padding: 5px;
+}
 
-  body button:not(.form-container button) {
-    padding: 6px 12px;
-    background-color: #7ec8e3;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
+body button:not(.form-container button) {
+  padding: 6px 12px;
+  background-color: #7ec8e3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
-  button:hover {
-    background-color: #2980b9;
-  }
+button:hover {
+  background-color: #2980b9;
+}
 
 
 
-  /*css des pages d'accueil etc */
+/*css des pages d'accueil etc */
 
-  .slider-container {
-    overflow: hidden;
-    position: relative;
-  }
+.slider-container {
+  overflow: hidden;
+  position: relative;
+}
 
-  .slider {
-    /* centre les cartes horizontales et permet le scroll */
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    /* espace entre les cards */
-    transition: transform 0.3s ease-in-out;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding-bottom: 1rem;
-    /* pour dégager la barre de progression */
-  }
+.slider {
+  /* centre les cartes horizontales et permet le scroll */
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  /* espace entre les cards */
+  transition: transform 0.3s ease-in-out;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+  /* pour dégager la barre de progression */
+}
 
-  .card {
-    min-width: 250px;
-    margin: 0 10px;
-    text-align: center;
-    flex-shrink: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.card {
+  min-width: 250px;
+  margin: 0 10px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .card:hover,
-  .card:focus-within {
-    transform: scale(1.05);
-    /* Agrandit la carte à 105% */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    /* Ajoute une ombre plus marquée */
-    z-index: 1;
-    /* S'assure que la carte est au-dessus des autres pendant le hover */
-  }
+.card:hover,
+.card:focus-within {
+  transform: scale(1.05);
+  /* Agrandit la carte à 105% */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  /* Ajoute une ombre plus marquée */
+  z-index: 1;
+  /* S'assure que la carte est au-dessus des autres pendant le hover */
+}
 
-  .card img {
-    width: 100%;
-    border-radius: 10px;
-    height: 180px;
-    object-fit: cover;
-  }
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+}
 
-  .arrow {
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 24px;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    z-index: 2;
-  }
+.arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 2;
+}
 
-  .arrow.left {
-    left: 0;
-  }
+.arrow.left {
+  left: 0;
+}
 
-  .arrow.right {
-    right: 0;
-  }
+.arrow.right {
+  right: 0;
+}
 
-  .progress-bar {
-    height: 4px;
-    background: #ccc;
-    margin-top: 10px;
-    position: relative;
-  }
+.progress-bar {
+  height: 4px;
+  background: #ccc;
+  margin-top: 10px;
+  position: relative;
+}
 
-  .progress {
-    height: 100%;
-    width: 0%;
-    background: #7ec8e3;
-    transition: width 0.3s;
-  }
+.progress {
+  height: 100%;
+  width: 0%;
+  background: #7ec8e3;
+  transition: width 0.3s;
+}
 
-  /* Centrage de la section entière */
-  section.benevole {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem 1rem;
-    background-color: #f9f9f9;
-  }
+/* Centrage de la section entière */
+section.benevole {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #f9f9f9;
+}
 
-  /* Formulaire stylé */
-  .form-container {
-    background: #ffffff;
-    padding: 2rem;
-    border-radius: 15px;
-    /* contour légèrement incurvé */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    /* réduit le formulaire */
-    display: flex;
+/* Formulaire stylé */
+.form-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  /* contour légèrement incurvé */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  /* réduit le formulaire */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style des labels */
+.form-container label {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* Style des champs de saisie */
+.form-container input {
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+/* Effets de focus (hover ou clique) */
+.form-container input:focus {
+  border-color: #0099ff;
+  box-shadow: 0 0 8px #66ccff;
+}
+
+/* Bouton stylé */
+.form-container button {
+  margin-top: 2rem;
+  padding: 0.75rem;
+  border: none;
+  background-color: #0099ff;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #007acc;
+}
+
+/* Ajoutez ces règles À LA FIN de votre fichier CSS existant */
+
+/* Override spécifique pour la page d'inscription */
+.inscription {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.inscription .section {
+  background: white;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  width: 100%;
+  min-width: auto;
+}
+
+.inscription h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.inscription h2 {
+  color: #4CAF50 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid #4CAF50;
+  padding: 0 0 0.5rem 0 !important;
+  margin-bottom: 1.5rem;
+}
+
+.inscription label {
+  color: #34495e;
+  margin-top: 0.8rem;
+}
+
+.inscription input:not([type="checkbox"]),
+.inscription select {
+  border: 2px solid #bdc3c7 !important;
+  border-radius: 6px !important;
+  padding: 0.8rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.inscription input:focus,
+.inscription select:focus {
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3) !important;
+}
+
+.inscription button[type="submit"] {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  padding: 1rem 2rem !important;
+  border-radius: 6px !important;
+  border: none !important;
+  transition: background 0.3s ease !important;
+}
+
+.inscription button[type="submit"]:hover {
+  background-color: #45a049 !important;
+}
+
+.inscription button[type="reset"] {
+  background-color: #e74c3c !important;
+  color: white !important;
+}
+
+/* Modifications spécifiques pour la modale */
+#charteModal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#charteModal h2 {
+  color: #4CAF50 !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+/* Override pour le responsive */
+@media (max-width: 768px) {
+  .inscription .row {
     flex-direction: column;
+    gap: 0;
   }
 
-  /* Style des labels */
-  .form-container label {
-    margin-top: 1rem;
-    font-weight: bold;
+  .inscription {
+    padding: 1rem;
+    margin: 1rem;
   }
-
-  /* Style des champs de saisie */
-  .form-container input {
-    padding: 0.6rem;
-    margin-top: 0.3rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-  }
-
-  /* Effets de focus (hover ou clique) */
-  .form-container input:focus {
-    border-color: #0099ff;
-    box-shadow: 0 0 8px #66ccff;
-  }
-
-  /* Bouton stylé */
-  .form-container button {
-    margin-top: 2rem;
-    padding: 0.75rem;
-    border: none;
-    background-color: #0099ff;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .form-container button:hover {
-    background-color: #007acc;
-  }
+}
