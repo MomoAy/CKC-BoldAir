@@ -19,7 +19,7 @@ import boldair.util.Alert;
 @Controller
 public class WebPublic {
 
-	private final DaoEvenement daoEvenement;
+	private DaoEvenement daoEvenement;
 	private DaoBenevole daoBenevole;
 
 	// -------
@@ -66,14 +66,14 @@ public class WebPublic {
 		model.addAttribute( "list", items );
 		return "/all-evenements";
 	}
-	
-	
+
+
 	@GetMapping( path = "/add-extern-ben" )
 	public String edit( Long id, Model model ) {
 
 		Benevole item;
 
-		
+
 		if ( id == null ) {
 			item = new Benevole();
 		} else {
@@ -103,7 +103,7 @@ public class WebPublic {
 			result.rejectValue( "nom", "", "Ce nom est déjà utilisé" );
 			return "plat/form";
 		}
-		
+
 
 	}
 
