@@ -29,21 +29,21 @@ import lombok.RequiredArgsConstructor;
 //@RequestMapping("/participant")
 @SessionAttributes("PagingParticipant")
 public class WebParticipant {
-	
+
 	private final DaoParticipant daoParticipant;
 	private final DaoEquipe daoEquipe;
 	private final DaoInscriptionEquipe daoInscriptionEquipe;
-	
+
 	@GetMapping("/inscription")
 	public String edit(Model model) {
-	
+
 		return "public/inscription";
 	}
-	
+
 	@PostMapping("/inscription")
 	public String save(
 		@RequestParam Long evenementId,
-			
+
 		@RequestParam String nomEquipe,
 		@RequestParam Integer accordDonnee,
 
@@ -55,7 +55,7 @@ public class WebParticipant {
 		@RequestParam Integer accordImage1,
 		@RequestParam("certificatMedical1") MultipartFile file1_1,
 		@RequestParam("autParentale1") MultipartFile file1_2,
-		
+
 		@RequestParam String nomPart2,
 		@RequestParam String prenomPart2,
 		@RequestParam String emailPart2,
@@ -69,7 +69,7 @@ public class WebParticipant {
 		) throws IOException
 	{
 		//Je créer l'équipe dab
-		Equipe equipe = new Equipe(); 
+		Equipe equipe = new Equipe();
 		equipe.setNomEquipe( nomEquipe );
 		if(accordDonnee == 1) {
 			equipe.setAccordDonnee( accordDonnee ) ;
@@ -78,7 +78,7 @@ public class WebParticipant {
 	        return "redirect:/form";
 		}
 		daoEquipe.save( equipe );
-		
+
 		//Ensuite le premier participant
 		Participant p1 = new Participant();
 		p1.setNomPart( prenomPart1 );
@@ -90,7 +90,7 @@ public class WebParticipant {
 		p1.setCertificatMed( file1_1.getBytes() );
 		p1.setAutParentale( file1_2.getBytes() );
 		p1.setIdEquipe( equipe.getIdEquipe() );
-		
+
 		//Ensuite le second participant
 		Participant p2 = new Participant();
 		p2.setNomPart( prenomPart2 );
@@ -102,23 +102,22 @@ public class WebParticipant {
 		p2.setCertificatMed( file2_1.getBytes() );
 		p2.setAutParentale( file2_2.getBytes() );
 		p2.setIdEquipe( equipe.getIdEquipe() );
-		
+
 		daoParticipant.save( p1 );
 		daoParticipant.save( p2 );
-		
-		
+
 		//Je finalise avec l'Inscription
 		InscriptionEquipe ins = new InscriptionEquipe();
 		ins.setIdEv(evenementId);
 	    ins.setIdEquipe(equipe.getIdEquipe());
 	    ins.setStatut( "Attente" );
-		
+
 		daoInscriptionEquipe.save( ins );
-		
+
 		ra.addAttribute( "alert1", new Alert( Alert.Color.SUCCESS, "Votre inscription a bien été pris en compte" ) );
-		ra.addAttribute( "alert1", new Alert( Alert.Color.SUCCESS, "Vous serez notifier du statut de l'avancement." ) );		
-				
+		ra.addAttribute( "alert1", new Alert( Alert.Color.SUCCESS, "Vous serez notifier du statut de l'avancement." ) );
+
 		return "redirect:/public/acceuil";
-		
+
 	}
 }
