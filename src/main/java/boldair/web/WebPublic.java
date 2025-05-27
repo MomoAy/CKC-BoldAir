@@ -4,17 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import boldair.dao.DaoBenevole;
 import boldair.dao.DaoEvenement;
-import boldair.data.Benevole;
 import boldair.data.Evenement;
-import boldair.util.Alert;
 
 @Controller
 public class WebPublic {
@@ -48,11 +42,6 @@ public class WebPublic {
 	@GetMapping( "/qui-sommes-nous" )
 	public String quiSommesNous() {
 		return "public/qui-sommes-nous";
-	}
-
-	@GetMapping( "/inscription" )
-	public String inscription() {
-		return "public/inscription";
 	}
 
 	@GetMapping( "/benevole" )
