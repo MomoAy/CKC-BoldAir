@@ -149,9 +149,6 @@ public class WebPoste {
 		return "redirect:/list/post";
 	}
 		
-		
-	
-	
 	
 	private Page<Poste> getPage( Paging paging ) {
 		Page<Poste> page;

@@ -16,7 +16,6 @@ public class Equipe {
 	@Id
 	private Long idEquipe;
 	private String nomEquipe;
-	private String dossart;
-	private String Etat;	
-	
+	private String dossard;
+	private Integer accordDonnee;
 }
