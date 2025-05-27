@@ -1,136 +1,278 @@
 <!doctype html>
 <html th:with="tabTitle='inscription'" lang="fr">
 
-
 <head th:replace="~{_fragments/layout :: head(${tabTitle})}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/styles.css" />
+
+  <style>
+    /* Nouveaux styles */
+    .inscription {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+      background: white;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: #4CAF50;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.8rem 0 0.3rem;
+      font-weight: 500;
+      color: #34495e;
+    }
+
+    input:not([type="checkbox"]),
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #bdc3c7;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #4CAF50;
+      outline: none;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+    .row {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .column {
+      flex: 1;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    button[type="reset"] {
+      background-color: #e74c3c;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      margin-left: 1rem;
+    }
+
+    .file-input {
+      padding: 0.5rem;
+    }
+
+    #charteModal {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    #charteModal h2 {
+      color: #4CAF50;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- -->
-  <!-- En-tête de page - barre de navigation -->
-  <!-- -->
   <header th:replace="~{_fragments/layout :: header }"></header>
 
   <section class="inscription">
-    <form action="inscription.html" method="POST">
+    <form action="/inscription" method="POST" enctype="multipart/form-data">
       <h1>Formulaire d'inscription</h1>
 
-      <!-- SECTION CAPITAINE -->
+      <!-- Section Équipe -->
+      <div class="column">
+        <label>Nom de l'Équipe</label>
+        <input type="text" name="nomEquipe" required>
+      </div>
+
+      <!-- Section Capitaine -->
       <div class="section">
         <h2>Capitaine</h2>
         <div class="row">
           <div class="column">
             <label>Nom</label>
-            <input type="text" name="nom_capitaine" required>
+            <input type="text" name="nomPart1" required>
           </div>
           <div class="column">
             <label>Prénom</label>
-            <input type="text" name="prenom_capitaine" required>
+            <input type="text" name="prenomPart1" required>
           </div>
         </div>
 
         <div class="row">
           <div class="column">
             <label for="naissance_capitaine">Date de naissance</label>
-            <input type="date" id="naissance_capitaine" name="naissance_capitaine" required
-              onchange="verifierAge('capitaine')">
+            <input type="date" id="naissance_capitaine" name="datNais1" required onchange="verifierAge('capitaine')">
           </div>
           <div class="column">
             <label>Numéro de téléphone</label>
-            <input type="tel" name="tel_capitaine" required>
+            <input type="tel" name="telephonePart1" required>
           </div>
         </div>
 
-        <label>Adresse</label>
-        <input type="text" name="adresse_capitaine">
-
         <label>Adresse mail</label>
-        <input type="email" name="email_capitaine">
+        <input type="email" name="emailPart1">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificat_capitaine" class="file-input">
+        <input type="file" name="certificatMedical1" class="file-input">
 
         <div id="autorisation_capitaine_container" style="display: none;">
           <label for="autorisation_capitaine">Autorisation parentale (capitaine mineur)</label>
-          <input type="file" name="autorisation_capitaine" id="autorisation_capitaine">
+          <input type="file" name="autParentale1" id="autorisation_capitaine">
         </div>
+
+        <label for="accord_image">Accord sur l'image</label>
+        <input type="checkbox" name="accordImage1" id="accordImage1" value=1>
+
         <label for="evenement">Choisissez l'événement</label>
-        <select name="evenement" id="evenement" required>
+        <select name="evenementId" id="evenement" required>
           <option value="">-- Sélectionnez un événement --</option>
-          <option value="canoe_jeune">Bol d’Air</option>
+          <option value=1>Bol d’Air</option>
           <option value="slalom_regional">mini Bol d’Air</option>
           <option value="descente">Bol découverte</option>
         </select>
       </div>
 
-      <!-- SECTION EQUIPIER -->
+      <!-- Section Equipier -->
       <div class="section">
         <h2>Équipier</h2>
         <div class="row">
           <div class="column">
             <label>Nom</label>
-            <input type="text" name="nom_equipier" required>
+            <input type="text" name="nomPart2" required>
           </div>
           <div class="column">
             <label>Prénom</label>
-            <input type="text" name="prenom_equipier" required>
+            <input type="text" name="prenomPart2" required>
           </div>
         </div>
 
         <div class="row">
           <div class="column">
             <label for="naissance_equipier">Date de naissance</label>
-            <input type="date" id="naissance_equipier" name="naissance_equipier" required
-              onchange="verifierAge('equipier')">
+            <input type="date" id="naissance_equipier" name="datNais2" required onchange="verifierAge('equipier')">
           </div>
           <div class="column">
             <label>Numéro de téléphone</label>
-            <input type="tel" name="tel_equipier" required>
+            <input type="tel" name="telephonePart2" required>
           </div>
         </div>
 
-        <label>Adresse</label>
-        <input type="text" name="adresse_equipier">
-
         <label>Adresse mail</label>
-        <input type="email" name="email_equipier">
+        <input type="email" name="emailPart2">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificat_equipier" class="file-input">
+        <input type="file" name="certificatMedical2" class="file-input">
+
+        <label for="accord_image">Accord sur l'image</label>
+        <input type="checkbox" name="accordImage2" id="accordImage2" value=1>
 
         <div id="autorisation_equipier_container" style="display: none;">
           <label for="autorisation_equipier">Autorisation parentale (équipier mineur)</label>
-          <input type="file" name="autorisation_equipier" id="autorisation_equipier">
+          <input type="file" name="autParentale2" id="autorisation_equipier">
         </div>
       </div>
-      <!-- Accès à la charte -->
-      <div style="margin-top: 25px;">
+
+      <!-- Section Charte -->
+      <div style="margin: 2rem 0;">
         <label>
           <strong>Charte de confidentialité :</strong><br>
-          <a href="#" onclick="afficherCharte(); return false;">Lire la charte de confidentialité de l'organisation</a>
+          <a href="#" onclick="afficherCharte(); return false;" style="color: #4CAF50;">Lire la charte de
+            confidentialité</a>
         </label>
-        <input type="hidden" id="accordCharte" name="accordCharte" value="non">
+        <input type="hidden" id="accordCharte" name="accordDonnee" value=0>
       </div>
 
-      <button type="submit">Envoyer l'inscription</button>
-
-      <button type="submit" class="btn">VALIDER</button>
+      <!-- Boutons -->
+      <div style="text-align: center;">
+        <button type="submit">Envoyer l'inscription</button>
+        <button type="reset" class="btn">Annuler</button>
+      </div>
     </form>
   </section>
 
-  <!-- -->
-  <!-- Pied de page -->
-  <!-- -->
-  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
+  <footer th:replace="~{_fragments/layout :: footer}"></footer>
 
+  <!-- Modale Charte -->
+  <div id="charteModal"
+    style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:80%; max-width:700px; max-height:80vh; overflow:auto; z-index:1000;">
+    <h2>Charte de Confidentialité</h2>
+    <div id="contenuCharte">
+      <h3>1. Collecte des données</h3>
+      <p>Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé pour la gestion
+        des inscriptions aux événements sportifs.</p>
 
+      <h3>2. Finalité du traitement</h3>
+      <p>Les données sont utilisées pour :</p>
+      <ul>
+        <li>Vérifier l'éligibilité des participants</li>
+        <li>Communiquer les informations pratiques</li>
+        <li>Assurer la sécurité pendant les événements</li>
+      </ul>
 
-  <!-- Scripts définis dans le layout -->
+      <h3>3. Conservation des données</h3>
+      <p>Les données sont conservées pendant 1 an après l'événement puis archivées pendant 3 ans conformément à la
+        législation sportive.</p>
+
+      <h3>4. Accès aux données</h3>
+      <p>Seuls les organisateurs de l'événement et les autorités compétentes ont accès à ces données.</p>
+
+      <h3>5. Droits des utilisateurs</h3>
+      <p>Vous pouvez exercer vos droits d'accès, de rectification ou d'opposition en contactant :
+        contact@organisation.fr</p>
+    </div>
+
+    <div style="text-align:center; margin:2rem 0;">
+      <button onclick="accepterCharte()"
+        style="background-color:#4CAF50; color:white; padding:0.8rem 1.5rem;">Accepter</button>
+      <button onclick="fermerCharte()" style="margin-left:1rem; padding:0.8rem 1.5rem;">Fermer</button>
+    </div>
+  </div>
+
   <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
+
   <script>
+    // Scripts existants conservés sans modification
     function verifierAge(role) {
       const naissanceInput = document.getElementById("naissance_" + role);
       const autorisationContainer = document.getElementById("autorisation_" + role + "_container");
@@ -146,39 +288,15 @@
         age--;
       }
 
-      // Affiche ou cache l'autorisation selon l'âge
       if (age < 18) {
         autorisationContainer.style.display = "block";
       } else {
         autorisationContainer.style.display = "none";
       }
     }
-  </script>
 
-  <!-- Modale (popup) -->
-  <div id="charteModal"
-    style="display:none; position:fixed; top:10%; left:10%; width:80%; height:70%; background:white; border:1px solid #ccc; padding:20px; overflow:auto; box-shadow: 0 0 10px #000;">
-    <h2>Charte de confidentialité</h2>
-    <pre id="contenuCharte" style="white-space: pre-wrap; font-size: 14px;"></pre>
-
-    <div style="margin-top: 20px;">
-      <button onclick="accepterCharte()"
-        style="background-color: green; color: white; padding: 8px 16px; border: none; cursor: pointer;">Accepter</button>
-      <button onclick="fermerCharte()" style="margin-left: 10px;">Fermer</button>
-    </div>
-  </div>
-
-  <script>
     function afficherCharte() {
-      fetch("charte.txt")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("contenuCharte").textContent = data;
-          document.getElementById("charteModal").style.display = "block";
-        })
-        .catch(err => {
-          alert("Erreur lors du chargement de la charte.");
-        });
+      document.getElementById("charteModal").style.display = "block";
     }
 
     function fermerCharte() {
@@ -186,23 +304,21 @@
     }
 
     function accepterCharte() {
-      document.getElementById("accordCharte").value = "oui";
-      document.getElementById("charteModal").style.display = "none";
-      alert("Merci, vous avez accepté la charte.");
+      document.getElementById("accordCharte").value = 1;
+      fermerCharte();
     }
 
-    // Empêche l'envoi du formulaire si la charte n'est pas acceptée
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.querySelector("form");
       form.addEventListener("submit", function (e) {
         const accord = document.getElementById("accordCharte").value;
-        if (accord !== "oui") {
+        if (accord != 1) {
           e.preventDefault();
-          alert("Veuillez lire et accepter la charte de confidentialité avant de valider.");
+          alert("Veuillez accepter la charte de confidentialité avant de soumettre le formulaire.");
         }
       });
     });
   </script>
-
-
 </body>
+
+</html>

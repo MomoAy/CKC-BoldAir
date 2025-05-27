@@ -259,3 +259,104 @@ section.benevole {
 .form-container button:hover {
   background-color: #007acc;
 }
+
+/* Ajoutez ces règles À LA FIN de votre fichier CSS existant */
+
+/* Override spécifique pour la page d'inscription */
+.inscription {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.inscription .section {
+  background: white;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  width: 100%;
+  min-width: auto;
+}
+
+.inscription h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.inscription h2 {
+  color: #4CAF50 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid #4CAF50;
+  padding: 0 0 0.5rem 0 !important;
+  margin-bottom: 1.5rem;
+}
+
+.inscription label {
+  color: #34495e;
+  margin-top: 0.8rem;
+}
+
+.inscription input:not([type="checkbox"]),
+.inscription select {
+  border: 2px solid #bdc3c7 !important;
+  border-radius: 6px !important;
+  padding: 0.8rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.inscription input:focus,
+.inscription select:focus {
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3) !important;
+}
+
+.inscription button[type="submit"] {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  padding: 1rem 2rem !important;
+  border-radius: 6px !important;
+  border: none !important;
+  transition: background 0.3s ease !important;
+}
+
+.inscription button[type="submit"]:hover {
+  background-color: #45a049 !important;
+}
+
+.inscription button[type="reset"] {
+  background-color: #e74c3c !important;
+  color: white !important;
+}
+
+/* Modifications spécifiques pour la modale */
+#charteModal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#charteModal h2 {
+  color: #4CAF50 !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+/* Override pour le responsive */
+@media (max-width: 768px) {
+  .inscription .row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .inscription {
+    padding: 1rem;
+    margin: 1rem;
+  }
+}
