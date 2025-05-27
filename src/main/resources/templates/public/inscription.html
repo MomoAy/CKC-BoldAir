@@ -15,52 +15,60 @@
   <header th:replace="~{_fragments/layout :: header }"></header>
 
   <section class="inscription">
-    <form action="inscription.html" method="POST">
+    <form action="/inscription" method="POST" enctype="multipart/form-data">
       <h1>Formulaire d'inscription</h1>
 
       <!-- SECTION CAPITAINE -->
+      <div class="column">
+        <label>Nom de l'Équipe</label>
+        <input type="text" name="nomEquipe" required>
+      </div>
+
       <div class="section">
         <h2>Capitaine</h2>
         <div class="row">
           <div class="column">
             <label>Nom</label>
-            <input type="text" name="nom_capitaine" required>
+            <input type="text" name="nomPart1" required>
           </div>
           <div class="column">
             <label>Prénom</label>
-            <input type="text" name="prenom_capitaine" required>
+            <input type="text" name="prenomPart1" required>
           </div>
         </div>
 
         <div class="row">
           <div class="column">
             <label for="naissance_capitaine">Date de naissance</label>
-            <input type="date" id="naissance_capitaine" name="naissance_capitaine" required
-              onchange="verifierAge('capitaine')">
+            <input type="date" id="naissance_capitaine" name="datNais1" required onchange="verifierAge('capitaine')">
           </div>
           <div class="column">
             <label>Numéro de téléphone</label>
-            <input type="tel" name="tel_capitaine" required>
+            <input type="tel" name="telephonePart1" required>
           </div>
         </div>
 
-        <label>Adresse</label>
-        <input type="text" name="adresse_capitaine">
+        <!-- <label>Adresse</label>
+        <input type="text" name="adresse_capitaine"> -->
 
         <label>Adresse mail</label>
-        <input type="email" name="email_capitaine">
+        <input type="email" name="emailPart1">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificat_capitaine" class="file-input">
+        <input type="file" name="certificatMedical1" class="file-input">
 
         <div id="autorisation_capitaine_container" style="display: none;">
           <label for="autorisation_capitaine">Autorisation parentale (capitaine mineur)</label>
-          <input type="file" name="autorisation_capitaine" id="autorisation_capitaine">
+          <input type="file" name="autParentale1" id="autorisation_capitaine">
         </div>
+
+        <label for="accord_image">Accord sur l'image</label>
+        <input type="checkbox" name="accordImage1" id="accordImage1" value=1>
+
         <label for="evenement">Choisissez l'événement</label>
-        <select name="evenement" id="evenement" required>
+        <select name="evenementId" id="evenement" required>
           <option value="">-- Sélectionnez un événement --</option>
-          <option value="canoe_jeune">Bol d’Air</option>
+          <option value=1>Bol d’Air</option>
           <option value="slalom_regional">mini Bol d’Air</option>
           <option value="descente">Bol découverte</option>
         </select>
@@ -72,38 +80,40 @@
         <div class="row">
           <div class="column">
             <label>Nom</label>
-            <input type="text" name="nom_equipier" required>
+            <input type="text" name="nomPart2" required>
           </div>
           <div class="column">
             <label>Prénom</label>
-            <input type="text" name="prenom_equipier" required>
+            <input type="text" name="prenomPart2" required>
           </div>
         </div>
 
         <div class="row">
           <div class="column">
             <label for="naissance_equipier">Date de naissance</label>
-            <input type="date" id="naissance_equipier" name="naissance_equipier" required
-              onchange="verifierAge('equipier')">
+            <input type="date" id="naissance_equipier" name="datNais2" required onchange="verifierAge('equipier')">
           </div>
           <div class="column">
             <label>Numéro de téléphone</label>
-            <input type="tel" name="tel_equipier" required>
+            <input type="tel" name="telephonePart2" required>
           </div>
         </div>
 
-        <label>Adresse</label>
-        <input type="text" name="adresse_equipier">
+        <!-- <label>Adresse</label>
+        <input type="text" name="adresse_equipier"> -->
 
         <label>Adresse mail</label>
-        <input type="email" name="email_equipier">
+        <input type="email" name="emailPart2">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificat_equipier" class="file-input">
+        <input type="file" name="certificatMedical2" class="file-input">
+
+        <label for="accord_image">Accord sur l'image</label>
+        <input type="checkbox" name="accordImage2" id="accordImage2" value=1>
 
         <div id="autorisation_equipier_container" style="display: none;">
           <label for="autorisation_equipier">Autorisation parentale (équipier mineur)</label>
-          <input type="file" name="autorisation_equipier" id="autorisation_equipier">
+          <input type="file" name="autParentale2" id="autorisation_equipier">
         </div>
       </div>
       <!-- Accès à la charte -->
@@ -112,12 +122,12 @@
           <strong>Charte de confidentialité :</strong><br>
           <a href="#" onclick="afficherCharte(); return false;">Lire la charte de confidentialité de l'organisation</a>
         </label>
-        <input type="hidden" id="accordCharte" name="accordCharte" value="non">
+        <input type="hidden" id="accordCharte" name="accordDonnee" value=0>
       </div>
 
       <button type="submit">Envoyer l'inscription</button>
 
-      <button type="submit" class="btn">VALIDER</button>
+      <button type="reset" class="btn">Annulez</button>
     </form>
   </section>
 
@@ -186,7 +196,7 @@
     }
 
     function accepterCharte() {
-      document.getElementById("accordCharte").value = "oui";
+      document.getElementById("accordCharte").value = 1;
       document.getElementById("charteModal").style.display = "none";
       alert("Merci, vous avez accepté la charte.");
     }
@@ -196,9 +206,10 @@
       const form = document.querySelector("form");
       form.addEventListener("submit", function (e) {
         const accord = document.getElementById("accordCharte").value;
-        if (accord !== "oui") {
+        if (accord != 1) {
           e.preventDefault();
           alert("Veuillez lire et accepter la charte de confidentialité avant de valider.");
+          console.log(accord);
         }
       });
     });

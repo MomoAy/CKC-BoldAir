@@ -1,5 +1,7 @@
 package boldair.data;
 
+import java.sql.Date;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -18,12 +20,11 @@ public class Participant {
 	private String nomPart;
 	private String prenomPart;
 	private String emailPart;
-	private String datNais;
+	private Date dateNais;
 	private String telephonePart;
-	private String accordDonnee;
-	private String accordImage;
-	private String certificatMedical;
-	private String autParentale;
+	private Integer accordImage;
+	private byte[] certificatMed;
+	private byte[] autParentale;
 	
 	private Long idEquipe;
 	
