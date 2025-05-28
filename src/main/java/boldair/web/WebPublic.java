@@ -19,8 +19,13 @@ import boldair.util.Alert;
 @Controller
 public class WebPublic {
 
-	private DaoEvenement	daoEvenement;
-	private DaoBenevole		daoBenevole;
+	private final DaoEvenement	daoEvenement;
+	private final DaoBenevole	daoBenevole;
+	
+	public WebPublic(DaoBenevole daoBenevole, DaoEvenement	daoEvenement) {
+		this.daoBenevole = daoBenevole;
+		this.daoEvenement = daoEvenement;
+	}
 
 	// -------
 	// Endpoints
@@ -50,11 +55,6 @@ public class WebPublic {
 		return "public/qui-sommes-nous";
 	}
 
-	@GetMapping( "/benevole" )
-	public String bénévole() {
-		return "public/benevole";
-	}
-
 	@GetMapping( "/dashbord" )
 	public String dashbord() {
 		return "public/dashbord";
@@ -68,7 +68,7 @@ public class WebPublic {
 	}
 
 
-	@GetMapping( path = "/add-extern-ben" )
+	@GetMapping( path = "/benevole" )
 	public String edit( Long id, Model model ) {
 
 		Benevole item;
@@ -81,32 +81,26 @@ public class WebPublic {
 		}
 
 		model.addAttribute( "item", item );
-		return "plat/form";
+		return "public/benevole";
 
 	}
 
-	// -------
-	// save()
-
-	@PostMapping( "/form" )
+	@PostMapping( "/benevole" )
 	public String save(
-			 @ModelAttribute( "item" ) Benevole item,
-			RedirectAttributes ra, Model model, BindingResult result ) {
+			 @ModelAttribute( "item" ) Benevole item, BindingResult result,
+			RedirectAttributes ra, Model model) {
 
-		if(daoBenevole.verifierUniciteNom( item.getNomBen(), item.getIdBen() )) {
+		if(daoBenevole.verifierUniciteEmail( item.getEmail(), item.getIdBen() )) {
+			item.setType( "Externe" );
 			daoBenevole.save( item );
-			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Mise à jour effectuée avec succès" ) );
-			return "redirect:/plat/list";
+			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Action effectuée avec succès" ) );
+			return "redirect:/benevole";
 		} else {
 			model.addAttribute( "item", item );
-			model.addAttribute( "typePlats", daoBenevole.findAll() );
-			result.rejectValue( "nom", "", "Ce nom est déjà utilisé" );
-			return "plat/form";
+			result.rejectValue( "email", "", "Cet email est déjà utilisé" );
+			return "public/benevole";
 		}
 
 
 	}
-
-	// hello
-
 }

@@ -1,6 +1,9 @@
 package boldair.data;
 
 import lombok.*;
+
+import java.sql.Date;
+
 import org.springframework.data.annotation.Id;
 
 @Data
@@ -15,7 +18,7 @@ public class Benevole {
 	private String	nomBen;
 	private String	prenom;
 	private String	email;
-	private String	disponibilites;
+	private Date	disponibilite;
 	private String	telephone;
 
 }

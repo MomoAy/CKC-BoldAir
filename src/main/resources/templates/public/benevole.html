@@ -21,23 +21,34 @@
 
   <h1 class="text-center">Formulaire d'inscription pour les bénévoles</h1>
   <section class="benevole">
-    <form class="form-container" action="/bénévole" method="post" enctype="multipart/form-data">
+    <form class="form-container" action="/benevole" method="post" th:object="${item}">
+
+      <!-- Champ caché : id -->
+      <input type="hidden" th:field="*{idBen}">
+
+      <!-- Nom -->
       <label for="nom">Nom</label>
-      <input type="text" id="nom" name="nom" required>
+      <input type="text" id="nom" th:field="*{nomBen}" required>
 
+      <!-- Prénom -->
       <label for="prenom">Prénom</label>
-      <input type="text" id="prenom" name="prenom" required>
+      <input type="text" id="prenom" th:field="*{prenom}" required>
 
+      <!-- Email -->
       <label for="email">Adresse email</label>
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" th:field="*{email}" required>
 
+      <!-- Téléphone -->
       <label for="telephone">Numéro de téléphone</label>
-      <input type="tel" id="telephone" name="telephone" required>
+      <input type="tel" id="telephone" th:field="*{telephone}" required>
 
+      <!-- Disponibilité -->
       <label for="disponibilite">Date de disponibilité</label>
-      <input type="date" id="disponibilite" name="disponibilite" required>
+      <input type="date" id="disponibilite" th:field="*{disponibilite}" required>
+
 
       <button type="submit">Envoyer ma candidature</button>
+      <button type="reset">Annuler</button>
 
     </form>
   </section>

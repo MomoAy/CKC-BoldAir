@@ -15,7 +15,7 @@ public interface DaoBenevole extends CrudRepository<Benevole, Long>, PagingAndSo
 
 	Page<Benevole> findByNomBenContainingIgnoreCase( String search, Pageable pageable );
 	
-	@Query("SELECT COUNT(*) = 0 FROM benevole where nom_ben = :nom AND id_ben <> COALESCE(:id, 0)")
-	boolean verifierUniciteNom(String nom, Long id);
+	@Query("SELECT COUNT(*) = 0 FROM benevole where email = :email AND id_ben <> COALESCE(:id, 0)")
+	boolean verifierUniciteEmail(String email, Long id);
 
 }
