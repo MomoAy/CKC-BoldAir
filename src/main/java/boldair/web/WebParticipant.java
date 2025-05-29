@@ -111,9 +111,7 @@ public class WebParticipant {
 
 		daoInscriptionEquipe.save( ins );
 
-		ra.addAttribute( "alert1", new Alert( Alert.Color.SUCCESS, "Votre inscription a bien été pris en compte" ) );
-		ra.addAttribute( "alert2", new Alert( Alert.Color.SUCCESS, "Vous serez notifier du statut de l'avancement." ) );
-
+		ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Votre inscription a bien été pris en compte." ) );
 		return "redirect:/";
 
 	}
