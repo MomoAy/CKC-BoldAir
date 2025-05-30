@@ -212,7 +212,6 @@
           <input type="file" name="autParentale2" id="autorisation_equipier">
         </div>
       </div>
-
       <!-- Section Charte -->
       <div style="margin: 2rem 0;">
         <label>
@@ -230,6 +229,7 @@
       </div>
     </form>
   </section>
+  <div class="alert text-center bg-secondary-subtle" th:if="${alert !=null}" th:text="${alert}"></div>
 
   <footer th:replace="~{_fragments/layout :: footer}"></footer>
 
