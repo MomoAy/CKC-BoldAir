@@ -35,7 +35,8 @@ public class WebPublic {
 	// home()
 
 	@GetMapping( "/" )
-	public String home() {
+	public String home(Model model) {
+		model.addAttribute( "event", daoEvenement.getDateMainEvent() );
 		return "public/accueil";
 	}
 

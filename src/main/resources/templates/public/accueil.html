@@ -125,7 +125,7 @@
           <h2 style="background-color: #28a745;" class="display-5 mb-4">Raid – Bol d’air 2025</h2>
           <p class="lead mb-4">
             Le <strong>Bol d’air 2025</strong> se tiendra le
-            <strong class="text-white">dimanche 6 juillet 2025</strong>.
+            <strong class="text-white" th:text="${#dates.format(event, 'EEEE dd MMMM yyyy')}"></strong>.
           </p>
           <a href="#" class="btn btn-light btn-lg">Haut de page</a>
         </div>
