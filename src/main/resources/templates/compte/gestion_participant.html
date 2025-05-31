@@ -62,39 +62,37 @@
   <input type="text" id="searchParticipants" onkeyup="filterTable('searchParticipants', 'tableParticipants')"
     placeholder="Rechercher un participant...">
   <table id="tableParticipants">
-    <tr>
-      <th onclick="sortTable('tableParticipants', 0)">Nom</th>
-      <th onclick="sortTable('tableParticipants', 1)">Email</th>
-      <th onclick="sortTable('tableParticipants', 2)">Événement</th>
-      <th>État d'inscription</th>
-      <th>Action</th>
-    </tr>
-    <tr>
-      <td>Sophie Durand</td>
-      <td>sophie@mail.com</td>
-      <td>Canoë Jeune</td>
-      <td>
-        <select onchange="afficherBouton('btn3')">
-          <option>En cours</option>
-          <option>Validé</option>
-          <option>Refusé</option>
-        </select>
-      </td>
-      <td><button id="btn3">Mettre à jour</button></td>
-    </tr>
-    <tr>
-      <td>Antoine Leblanc</td>
-      <td>antoine@mail.com</td>
-      <td>Slalom Régional</td>
-      <td>
-        <select onchange="afficherBouton('btn4')">
-          <option>En cours</option>
-          <option>Validé</option>
-          <option>Refusé</option>
-        </select>
-      </td>
-      <td><button id="btn4">Mettre à jour</button></td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Date de naissance</th>
+        <th>Téléphone</th>
+        <th>Accord image</th>
+        <th>Certificat médical</th>
+        <th>Autorisation parentale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="p : ${participants}">
+        <td th:text="${p.nomPart}">Nom</td>
+        <td th:text="${p.prenomPart}">Prénom</td>
+        <td th:text="${p.emailPart}">Email</td>
+        <td th:text="${#dates.format(p.dateNais, 'dd/MM/yyyy')}">Date</td>
+        <td th:text="${p.telephonePart}">Téléphone</td>
+        <td th:text="${p.accordImage == 1 ? 'Oui' : 'Non'}">Image</td>
+        <td>
+          <a th:href="@{'/fichiers/certificat/' + ${p.idPart}}" target="_blank">Voir</a>
+        </td>
+        <td>
+          <span th:if="${p.autParentale != null}">
+            <a th:href="@{'/fichiers/autorisation/' + ${p.idPart}}" target="_blank">Voir</a>
+          </span>
+          <span th:if="${p.autParentale == null}">—</span>
+        </td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- Fin Contenu de la page -->

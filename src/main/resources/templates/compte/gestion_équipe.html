@@ -69,32 +69,21 @@
       <th>État d'inscription</th>
       <th>Action</th>
     </tr>
-    <tr>
-      <td>Sophie Durand</td>
-      <td>sophie@mail.com</td>
-      <td>Canoë Jeune</td>
-      <td>
-        <select onchange="afficherBouton('btn3')">
-          <option>En cours</option>
-          <option>Validé</option>
-          <option>Refusé</option>
-        </select>
-      </td>
-      <td><button id="btn3">Mettre à jour</button></td>
-    </tr>
-    <tr>
-      <td>Antoine Leblanc</td>
-      <td>antoine@mail.com</td>
-      <td>Slalom Régional</td>
-      <td>
-        <select onchange="afficherBouton('btn4')">
-          <option>En cours</option>
-          <option>Validé</option>
-          <option>Refusé</option>
-        </select>
-      </td>
-      <td><button id="btn4">Mettre à jour</button></td>
-    </tr>
+    <tbody>
+      <tr th:each="e : ${equipes}">
+        <td th:text="${e.nomEquipe}"></td>
+        <td th:text="${e.dossard}"></td>
+        <td th:text="${e.dateInscription}"></td>
+        <td>
+          <select th:value="${e.status}" onchange="afficherBouton('btn3')">
+            <option value="Attente">Attente</option>
+            <option value="Validé">Validé</option>
+            <option value="Refusé">Refusé</option>
+          </select>
+        </td>
+        <td><button id="btn3">Mettre à jour</button></td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- Fin Contenu de la page -->
