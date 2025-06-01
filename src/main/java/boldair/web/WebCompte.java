@@ -55,7 +55,7 @@ public class WebCompte {
 
 		var page = getPage( paging );
 
-		// Si la n° de page demandé est > au nombre total, on affiche la dernière page 
+		// Si la n° de page demandé est > au nombre total, on affiche la dernière page
 		if ( paging.getPageNum() > page.getTotalPages() && page.getTotalPages() > 0 ) {
 			paging.setPageNum( page.getTotalPages() );
 			page = getPage( paging );
