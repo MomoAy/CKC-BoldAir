@@ -90,6 +90,10 @@ public class WebCompte {
 	public String gestion_benevole() {
 		return "compte/gestion_benevole";
 	}
+	@GetMapping( "/gestion_poste" )
+	public String gestion_poste() {
+		return "compte/gestion_poste";
+	}
 
 	// -------
 	// list() - POST
