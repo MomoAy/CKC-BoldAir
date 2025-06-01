@@ -107,8 +107,8 @@ public class WebBenevole {
 			return "redirect:/benevole";
 		} else {
 			model.addAttribute( "item", item );
-			result.rejectValue( "email", "", "Cet email est déjà utilisé" );
-			return "public/benevole";
+			ra.addFlashAttribute( "alert", new Alert( Alert.Color.INFO, "Action effectuée avec succès" ) );
+			return "redirect:/benevole";
 		}
 
 	}
