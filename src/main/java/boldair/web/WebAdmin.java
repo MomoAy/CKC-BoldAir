@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import boldair.dao.DaoBenevole;
 import boldair.dao.DaoEquipe;
+import boldair.dao.DaoInscriptionEquipeData;
 import boldair.dao.DaoParticipant;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class WebAdmin {
 	private final DaoParticipant daoParticipant;
 	private final DaoEquipe daoEquipe;
 	private final DaoBenevole daoBenevole;
+	private final DaoInscriptionEquipeData daoInscriptionEquipeData;
 	
 	
 	@GetMapping( "/participant" )
@@ -33,7 +35,7 @@ public class WebAdmin {
 	
 	@GetMapping( "/equipe" )
 	public String gestion_équipe(Model model) {
-		model.addAttribute( "equipes", daoEquipe.findAll() );
+		model.addAttribute( "equipes", daoInscriptionEquipeData.findAllEquipeAvecInscription() );
 		return "compte/gestion_équipe";
 	}
 	

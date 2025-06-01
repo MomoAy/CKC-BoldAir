@@ -61,42 +61,39 @@
   <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles', 'tableBenevoles')"
     placeholder="Rechercher un bénévole...">
   <table id="tableBenevoles">
-    <tr>
-      <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
-      <th onclick="sortTable('tableBenevoles', 1)">Email</th>
-      <th onclick="sortTable('tableBenevoles', 2)">Poste</th>
-      <th>Tâche à effectuer</th>
-      <th>Note du jour</th>
-      <th>Action</th>
-    </tr>
-    <tr>
-      <td>Jean Dupont</td>
-      <td>jean@mail.com</td>
-      <td>
-        <select onchange="afficherBouton('btn1')">
-          <option>Bipeur</option>
-          <option>Contrôleur</option>
-          <option>Gardien</option>
-        </select>
-      </td>
-      <td><input type="text" placeholder="Attribuer une tâche" oninput="afficherBouton('btn1')"></td>
-      <td><input type="number" min="1" max="5" onchange="afficherBouton('btn1')"></td>
-      <td><button id="btn1">Mettre à jour</button></td>
-    </tr>
-    <tr>
-      <td>Claire Martin</td>
-      <td>claire@mail.com</td>
-      <td>
-        <select onchange="afficherBouton('btn2')">
-          <option>Bipeur</option>
-          <option>Contrôleur</option>
-          <option>Gardien</option>
-        </select>
-      </td>
-      <td><input type="text" placeholder="Attribuer une tâche" oninput="afficherBouton('btn2')"></td>
-      <td><input type="number" min="1" max="5" onchange="afficherBouton('btn2')"></td>
-      <td><button id="btn2" class="">Mettre à jour</button></td>
-    </tr>
+
+    <thead>
+      <tr>
+        <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
+        <th onclick="sortTable('tableBenevoles', 1)">Prenom</th>
+        <th onclick="sortTable('tableBenevoles', 1)">Email</th>
+        <th onclick="sortTable('tableBenevoles', 1)">Téléphone</th>
+        <th onclick="sortTable('tableBenevoles', 1)">Disponibilité</th>
+        <th onclick="sortTable('tableBenevoles', 1)">type</th>
+        <th onclick="sortTable('tableBenevoles', 2)">Poste</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr th:each="ben : ${benevoles}">
+        <td th:text="${ben.nomBen}"></td>
+        <td th:text="${ben.prenom}">jean@mail.com</td>
+        <td th:text="${ben.email}"></td>
+        <td th:text="${ben.telephone}"></td>
+        <td th:text="${#dates.format(ben.disponibilite, 'EEEE dd MMMM yyyy')}"></td>
+        <td th:text="${ben.type}"></td>
+        <td>
+          <select name="statut">
+            <option value="Validé">Validé</option>
+            <option value="Attente">Attente</option>
+            <option value="Refusé">Refusé</option>
+          </select>
+        </td>
+        <td><button id="btn1">Mettre à jour</button></td>
+      </tr>
+    </tbody>
+
   </table>
   <!-- Fin Contenu de la page -->
 
