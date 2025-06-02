@@ -60,8 +60,14 @@
   <h2>Gestion des bénévoles</h2>
   <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles', 'tableBenevoles')"
     placeholder="Rechercher un bénévole...">
-  <table id="tableBenevoles">
 
+  <!-- Bouton Ajouter -->
+  <div class="d-flex justify-content-end">
+    <a title="Ajouter" class="btn btn-primary fw-bold px-3"><i class="bi-plus-lg"></i></a>
+  </div>
+
+
+  <table id="tableBenevoles">
     <thead>
       <tr>
         <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
