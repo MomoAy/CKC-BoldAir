@@ -3,7 +3,7 @@
 @import url(../lib/fontawesome/css/all.min.css);
 
 /* classe nospin - supprime le spinner das champs de type number */
-/-------/
+
 /* Chrome, Safari, Edge, Opera */
 input.nospin::-webkit-outer-spin-button,
 input.nospin::-webkit-inner-spin-button {
@@ -359,4 +359,181 @@ section.benevole {
     padding: 1rem;
     margin: 1rem;
   }
+}
+
+/* === Style général de la page de connexion === */
+body {
+  background-color: #f8f9fa;
+  /* Couleur de fond douce */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* === Section formulaire === */
+section.container {
+  background-color: #ffffff;
+  /* fond blanc pour le formulaire */
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+/* === Titre === */
+h2.text-center {
+  color: #343a40;
+  font-weight: 600;
+}
+
+/* === Champs de formulaire === */
+.form-label,
+.col-form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+input.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.3s ease;
+}
+
+input.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* === Checkbox === */
+.form-check-input {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* === Bouton mot de passe (œil) === */
+.input-group-text.btn-link {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.input-group-text.btn-link:hover {
+  color: #0056b3;
+}
+
+/* === Bouton de connexion === */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* === Responsive : ajuste le formulaire sur petits écrans === */
+@media (max-width: 576px) {
+
+  .form-label,
+  .col-form-label {
+    text-align: left;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .row {
+    display: block;
+  }
+
+  .col-12,
+  .col,
+  .col-6 {
+    width: 100%;
+  }
+}
+
+/* === Styles spécifiques pour la page Gestion des Participants === */
+body.participants h2 {
+  color: #1e90ff;
+  background-color: #e6f4ff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+body.participants .section {
+  border: 2px solid #d1e9ff;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  width: 80%;
+  margin: 2rem auto;
+}
+
+body.participants table {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+body.participants th {
+  background-color: #d0ebff;
+  color: #000;
+}
+
+body.participants input[type="text"],
+body.participants input[type="number"],
+body.participants select {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+body.participants button {
+  background-color: #1e90ff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+body.participants button:hover {
+  background-color: #1c7ed6;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+}
+
+.invisible {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  padding: 8px 15px;
+  /* même valeur que le bouton original */
+  margin: initial;
 }

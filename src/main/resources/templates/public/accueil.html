@@ -117,17 +117,48 @@
   <section class="py-5" style="background-color:#28a745; color:#fff;">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-12 col-md-10 order-md-2 text-end">
-          <img src="/img/Design.png" alt="Affiche Bol d’air 2025"
-            style="max-width:300px; width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
-        </div>
+
         <div class="col-20 col-md-15 order-md-1">
           <h2 style="background-color: #28a745;" class="display-5 mb-4">Raid – Bol d’air 2025</h2>
           <p class="lead mb-4">
             Le <strong>Bol d’air 2025</strong> se tiendra le
             <strong class="text-white">dimanche 6 juillet 2025</strong>.
           </p>
-          <a href="#" class="btn btn-light btn-lg">Haut de page</a>
+          <p>Vous etes plutot <b>PARTICIPANT</b> ou <b>BENEVOLE</b> ?</p>
+          <div class="row">
+
+            <!-- Carte 1 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 text-dark">
+                <!-- Image -->
+                <img src="/img/benevole.png" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                  <!-- Description -->
+                  <h5 class="card-title"><b>BENEVOLE</b></h5>
+                  <p class="card-text">Paticipez au Boldair en tant que benevole.</p>
+                  <!-- Bouton -->
+                  <a th:href="@{/benevole}" class="btn btn-success">S'inscrire</a>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!-- Carte 2 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 text-dark">
+                <img src="/img/participant.png" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                  <h5 class="card-title"><b>PARTICIPANT</b></h5>
+                  <p class="card-text">Paticipez au Boldair en tant que paticipant.</p>
+                  <a th:href="@{/inscription}" class="btn btn-success">S'inscrire</a>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, ial-scale=1.0">
   <link rel="stylesheet" href="../../static/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -17,73 +20,78 @@
   <!-- -->
   <!-- Contenu de la page -->
   <!-- -->
-  <section class="container my-4">
+  <section class="container my-5 animate__animated animate__fadeIn">
 
     <!-- Titre en haut de la page -->
-    <h2 class="mb-4 text-center">Comptes</h2>
+    <h2 class="mb-5 text-center">
+      <i class="bi bi-person-lines-fill me-2 text-primary"></i>Comptes
+    </h2>
 
-    <!-- Ajustement en largeur -->
-    <div class="mx-auto" style="max-width: 30rem;">
+    <!-- Bloc principal centré -->
+    <div class="mx-auto shadow-lg rounded-4 p-4 bg-light" style="max-width: 50rem;">
 
       <!-- Panneau de contrôle de la liste -->
-      <div th:replace="~{_fragments/component :: list_control_panel( @{/compte/form}, 'pagingCompte' ) }">
+      <div th:replace="~{_fragments/component :: list_control_panel( @{/compte/form}, 'pagingCompte' )}">
       </div>
 
       <!-- Vue dynamique -->
-      <div id="dynamic_view">
+      <div id="dynamic_view" class="mt-4">
 
-        <!-- Affichage si liste non vide -->
+        <!-- Affichage si la liste est non vide -->
         <div th:if="${list.size() > 0}">
 
-          <!-- -->
-          <!-- Tableau contenant la liste -->
-          <!-- -->
-          <table class="mt-2 mb-3 mx-auto table table-sm table-hover table-striped align-middle">
-            <thead class="table-info">
-              <tr class="align-middle">
-                <th>Pseudo</th>
-                <th>E-mail</th>
-                <th>Rôle</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="align-middle">
-              <tr th:each="item:${list}" th:object="${item}">
-                <td th:text="*{pseudo}"></td>
-                <td th:text="*{email}"></td>
-                <td th:text="*{roleAdmin}?'ADMIN'"> </td>
-                <td class="py-0 text-center" style="font-size: 1.2rem;">
-                  <a title="Modifier" th:href="@{/compte/form(id=*{idCompte})}"
-                    class="text-secondary bi-pencil-square"></a>&nbsp;
-                  <a title="Supprimer" th:data-id="*{idCompte}" th:data-name="*{pseudo}" onclick="confirm_delete(this)"
-                    class="text-secondary bi-trash3" style=" cursor:pointer;"></a>
-                </td>
-              </tr>
-            </tbody>
-          </table><!-- Fin Tableau contenant la liste -->
+          <!-- Tableau stylisé -->
+          <div class="table-responsive rounded-4 border border-info-subtle overflow-hidden">
+            <table class="table table-hover table-striped align-middle mb-0">
+              <thead class="table-primary text-center">
+                <tr>
+                  <th scope="col">👤 Pseudo</th>
+                  <th scope="col">📧 E-mail</th>
+                  <th scope="col">🛡️ Rôle</th>
+                  <th scope="col">⚙️ Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="item:${list}" th:object="${item}">
+                  <td th:text="*{pseudo}"></td>
+                  <td th:text="*{email}"></td>
+                  <td th:text="*{roleAdmin}?'ADMIN':'UTILISATEUR'"></td>
+                  <td class="text-center">
+                    <a title="Modifier" th:href="@{/compte/form(id=*{idCompte})}"
+                      class="btn btn-sm btn-outline-primary me-2">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <button title="Supprimer" th:data-id="*{idCompte}" th:data-name="*{pseudo}"
+                      onclick="confirm_delete(this)" class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-          <!-- Barre de navigation entre les pages -->
-          <div
+          <!-- Pagination -->
+          <div class="mt-4 text-center"
             th:replace="~{ _fragments/component :: paging_navbar( @{/compte/list/content}, 'pagingCompte', '#dynamic_view', true ) }">
           </div>
 
-        </div> <!-- Fin Affichage si liste non vide -->
-
-        <!-- -->
-        <!-- Affichage si liste vide -->
-        <!-- -->
-        <div th:unless="${list.size() > 0}" class="my-5 text-center fw-semibold">
-          <span>Aucun élément trouvé !</span>
         </div>
 
-        <!-- Message d'alerte -->
+        <!-- Si liste vide -->
+        <div th:unless="${list.size() > 0}" class="my-5 text-center text-muted fs-5">
+          <i class="bi bi-exclamation-circle me-2"></i>Aucun élément trouvé !
+        </div>
+
+        <!-- Alertes éventuelles -->
         <div th:replace="~{_fragments/component :: alert}"></div>
 
-      </div> <!-- Fin Vue dynamique -->
+      </div> <!-- Fin dynamic_view -->
 
-    </div> <!-- Fin Ajustement en largeur -->
+    </div> <!-- Fin bloc principal -->
 
-  </section> <!-- Fin Contenu de la page -->
+  </section>
+
 
   <!-- Boîte modale de gestion de la suppression -->
   <div th:replace="~{ _fragments/component :: confirm_delete(@{/compte/delete}, '#dynamic_view' ) }"></div>

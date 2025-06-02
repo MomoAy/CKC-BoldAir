@@ -36,7 +36,7 @@
             CKC • Bol d'Air
           </span>
         </a>
-
+        <center></center>
         <!-- Bouton menu -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu1"
           aria-controls="menu1" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,9 +64,7 @@
                 </li>
               </ul>
             </li>
-            <li sec:authorize="isAnonymous()">
-              <a th:href="@{/}" class="nav-link">Accueil</a>
-            </li>
+
             <li sec:authorize="isAnonymous()">
               <a th:href="@{/inscription}" class="nav-link">inscription</a>
             </li>
@@ -99,7 +97,6 @@
             </li>
           </ul>
         </div>
-
       </div>
     </nav>
   </header>

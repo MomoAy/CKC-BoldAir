@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../static/css/styles.css" />
+  <!-- Formulaire de saisie -->
+  <form class="login-form mb-auto" th:action="@{/login}" method="post">
+
 </head>
 
 <body>
@@ -64,7 +67,7 @@
           </div>
           <div class="col">
             <div class="form-check">
-              <input type="checkbox" id="remember-me" class="form-check-input" name="remember-me">
+              <input type="checkbox" id="remember-me" name="remember-me">
             </div>
           </div>
         </div>
