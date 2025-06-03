@@ -52,80 +52,43 @@
 
 <body class="participants">
   <header th:replace="~{_fragments/layout :: header}"></header>
-  <main class="container-fluid my-4"></main>
-  <section class="section">
+  <main class="container-fluid my-4">
+    <section class="section">
 
-    <h2>Gestion des équipes</h2>
-    <input type="text" id="searchéquipe" onkeyup="filterTable('searchéquipe', 'tableéquipe')"
-      placeholder="Rechercher une équipe...">
+      <h2>Gestion des équipes</h2>
+      <input type="text" id="searchéquipe" onkeyup="filterTable('searchéquipe', 'tableéquipe')"
+        placeholder="Rechercher une équipe...">
 
-    <table id="tableéquipe">
-      <thead>
+      <table id="tableéquipe">
         <tr>
           <th onclick="sortTable('tableéquipe', 0)">Nom de l'équipe</th>
-          <th onclick="sortTable('tableéquipe', 1)">Événement</th>
+          <th onclick="sortTable('tableéquipe', 1)">dossard</th>
+          <th onclick="sortTable('tableéquipe', 2)">Date inscription</th>
           <th>État d'inscription</th>
           <th>Action</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Sophie Durand</td>
-          <td>Canoë Jeune</td>
-          <td>
-            <select onchange="afficherBouton('btn3')">
-              <option>En cours</option>
-              <option>Validé</option>
-              <option>Refusé</option>
-            </select>
-          </td>
-          <td><button id="btn3">Mettre à jour</button></td>
-        </tr>
-        <tr>
-          <td>Antoine Leblanc</td>
-          <td>Slalom Régional</td>
-          <td>
-            <select onchange="afficherBouton('btn4')">
-              <option>En cours</option>
-              <option>Validé</option>
-              <option>Refusé</option>
-            </select>
-          </td>
-          <td><button id="btn4">Mettre à jour</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-
+        <tbody>
+          <tr th:each="e : ${equipes}">
+            <td th:text="${e.nomEquipe}"></td>
+            <td th:text="${e.dossard}"></td>
+            <td th:text="${#dates.format(e.dateInscription, 'EEEE dd MMMM yyyy')}"></td>
+            <td>
+              <select name="statut">
+                <option value="Validé" th:selected="${e.statut == 'Validé'}">Validé</option>
+                <option value="Attente" th:selected="${e.statut == 'Attente'}">Attente</option>
+                <option value="Refusé" th:selected="${e.statut == 'Refusé'}">Refusé</option>
+              </select>
+            </td>
+            <td><button id="btn3">Mettre à jour</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
-  <h2>Gestion des équipes</h2>
-  <input type="text" id="searchéquipe" onkeyup="filterTable('searchéquipe', 'tableéquipe')"
-    placeholder="Rechercher une équipe...">
-  <table id="tableéquipe">
-    <tr>
-      <th onclick="sortTable('tableéquipe', 0)">Nom de l'équipe</th>
-      <th onclick="sortTable('tableéquipe', 1)">dossard</th>
-      <th onclick="sortTable('tableéquipe', 2)">Date inscription</th>
-      <th>État d'inscription</th>
-      <th>Action</th>
-    </tr>
-    <tbody>
-      <tr th:each="e : ${equipes}">
-        <td th:text="${e.nomEquipe}"></td>
-        <td th:text="${e.dossard}"></td>
-        <td th:text="${#dates.format(e.dateInscription, 'EEEE dd MMMM yyyy')}"></td>
-        <td>
-          <select name="statut">
-            <option value="Validé" th:selected="${e.statut == 'Validé'}">Validé</option>
-            <option value="Attente" th:selected="${e.statut == 'Attente'}">Attente</option>
-            <option value="Refusé" th:selected="${e.statut == 'Refusé'}">Refusé</option>
-          </select>
-        </td>
-        <td><button id="btn3">Mettre à jour</button></td>
-      </tr>
-    </tbody>
-  </table>
+
+
+
+
 
 
   <footer th:replace="~{_fragments/layout :: footer}"></footer>
