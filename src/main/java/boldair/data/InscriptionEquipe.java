@@ -1,6 +1,8 @@
 package boldair.data;
 
-import java.sql.Date;
+
+
+import java.sql.Timestamp;
 
 import org.springframework.data.annotation.Id;
 
@@ -19,7 +21,7 @@ public class InscriptionEquipe {
 	private Long idInscription;
 	private Long idEquipe;
 	private Long idEv;
-	private Date dateInscription;
+	private Timestamp dateInscription;
 	private String statut;
 
 }

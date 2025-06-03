@@ -55,6 +55,7 @@
   <main class="container-fluid my-4">
     <h2 class="text-center mb-4">Gestion des participants</h2>
 
+
     <div class="row justify-content-center">
       <!-- Formulaire à gauche -->
       <div class="col-lg-4 col-md-5">
@@ -135,6 +136,44 @@
       </div>
     </div>
   </main>
+
+  <h2>Gestion des participants</h2>
+  <input type="text" id="searchParticipants" onkeyup="filterTable('searchParticipants', 'tableParticipants')"
+    placeholder="Rechercher un participant...">
+  <table id="tableParticipants">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Date de naissance</th>
+        <th>Téléphone</th>
+        <th>Accord image</th>
+        <th>Certificat médical</th>
+        <th>Autorisation parentale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="p : ${participants}">
+        <td th:text="${p.nomPart}">Nom</td>
+        <td th:text="${p.prenomPart}">Prénom</td>
+        <td th:text="${p.emailPart}">Email</td>
+        <td th:text="${#dates.format(p.dateNais, 'dd/MM/yyyy')}">Date</td>
+        <td th:text="${p.telephonePart}">Téléphone</td>
+        <td th:text="${p.accordImage == 1 ? 'Oui' : 'Non'}">Image</td>
+        <td>
+          <a th:href="@{'/fichiers/certificat/' + ${p.idPart}}" target="_blank">Voir</a>
+        </td>
+        <td>
+          <span th:if="${p.autParentale != null}">
+            <a th:href="@{'/fichiers/autorisation/' + ${p.idPart}}" target="_blank">Voir</a>
+          </span>
+          <span th:if="${p.autParentale == null}">—</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 
 
   <footer th:replace="~{_fragments/layout :: footer}"> </footer>

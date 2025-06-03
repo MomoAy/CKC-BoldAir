@@ -1,0 +1,139 @@
+<!doctype html>
+<html th:with="tabTitle='Accueil'" lang="fr">
+
+<head th:replace="~{_fragments/layout :: head(${tabTitle})}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../static/css/styles.css" />
+</head>
+
+<script>
+  function afficherBouton(id) {
+    document.getElementById(id).classList.add('visible');
+  }
+
+  function filterTable(inputId, tableId) {
+    const input = document.getElementById(inputId);
+    const filter = input.value.toLowerCase();
+    const table = document.getElementById(tableId);
+    const tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) {
+      const tds = tr[i].getElementsByTagName("td");
+      let visible = false;
+      for (let j = 0; j < tds.length; j++) {
+        if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
+          visible = true;
+          break;
+        }
+      }
+      tr[i].style.display = visible ? "" : "none";
+    }
+  }
+
+  function sortTable(tableId, colIndex) {
+    const table = document.getElementById(tableId);
+    const rows = Array.from(table.rows).slice(1);
+    const asc = table.getAttribute("data-sort-dir") !== "asc";
+
+    rows.sort((a, b) => {
+      const cellA = a.cells[colIndex].innerText.toLowerCase();
+      const cellB = b.cells[colIndex].innerText.toLowerCase();
+      return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+    });
+
+    rows.forEach(row => table.appendChild(row));
+    table.setAttribute("data-sort-dir", asc ? "asc" : "desc");
+  }
+</script>
+<style>
+  select {
+    width: 100%;
+    padding: 8px;
+  }
+</style>
+
+<body>
+
+  <!-- -->
+  <!-- En-tête de page - barre de navigation -->
+  <!-- -->
+  <header th:replace="~{_fragments/layout :: header }"></header>
+
+  <!-- -->
+  <!-- Contenu de la page -->
+  <!-- -->
+
+  <h2>Gestion des Poste</h2>
+  <input type="text" id="searchPoste" onkeyup="filterTable('searchPoste', 'tablePoste')"
+    placeholder="Rechercher un poste...">
+  <table id="tablePoste">
+    <tr>
+      <th onclick="sortTable('tablePoste', 0)">Nom du poste</th>
+      <th onclick="sortTable('tablePoste', 1)">Description</th>
+      <th onclick="sortTable('tablePoste', 2)">Heure</th>
+      <th onclick="sortTable('tablePoste', 3)">Bénevoles assignés</th>
+    </tr>
+    <tr>
+      <td>Accueil</td>
+      <td>Gérer l'entrée des Poste et vérifier les inscriptions</td>
+      <td>08:00 - 10:00</td>
+      <td>
+        <select multiple>
+          <option>Alice Dupont</option>
+          <option>Bruno Kassi</option>
+          <option>Fatou Diop</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Sécurité</td>
+      <td>Surveiller les zones sensibles et contrôler les accès</td>
+      <td>09:00 - 12:00</td>
+      <td>
+        <select multiple>
+          <option>Jean-Paul</option>
+          <option>Nadine</option>
+          <option>Ousmane</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Restauration</td>
+      <td>Distribuer les repas aux Poste et bénévoles</td>
+      <td>12:00 - 14:00</td>
+      <td>
+        <select multiple>
+          <option>Lucie</option>
+          <option>Hugo</option>
+          <option>Karim</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Nettoyage</td>
+      <td>Assurer la propreté des lieux tout au long de l'événement</td>
+      <td>15:00 - 17:00</td>
+      <td>
+        <select multiple>
+          <option>Sarah</option>
+          <option>Julien</option>
+          <option>Amina</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Fin Contenu de la page -->
+
+  <!-- -->
+  <!-- Pied de page -->
+  <!-- -->
+  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
+
+  <!-- Scripts définis dans le layout -->
+  <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
+
+</body>
+
+</html>

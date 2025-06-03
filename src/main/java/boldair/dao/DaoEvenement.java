@@ -1,5 +1,6 @@
 package boldair.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -20,4 +21,8 @@ public interface DaoEvenement extends CrudRepository<Evenement, Long>, PagingAnd
 	
 	@Query("SELECT * FROM evenement WHERE date_limite_inscription > CURRENT_DATE")
 	List<Evenement> findEvenementsActifs();
+	
+	@Query("SELECT date_evenement FROM evenement order by id_ev asc LIMIT(1)")
+	Date getDateMainEvent();
+	
 }

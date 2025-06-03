@@ -55,7 +55,7 @@ public class WebCompte {
 
 		var page = getPage( paging );
 
-		// Si la n° de page demandé est > au nombre total, on affiche la dernière page 
+		// Si la n° de page demandé est > au nombre total, on affiche la dernière page
 		if ( paging.getPageNum() > page.getTotalPages() && page.getTotalPages() > 0 ) {
 			paging.setPageNum( page.getTotalPages() );
 			page = getPage( paging );
@@ -89,6 +89,10 @@ public class WebCompte {
 	@GetMapping( "/gestion_benevole" )
 	public String gestion_benevole() {
 		return "compte/gestion_benevole";
+	}
+	@GetMapping( "/gestion_poste" )
+	public String gestion_poste() {
+		return "compte/gestion_poste";
 	}
 
 	// -------
