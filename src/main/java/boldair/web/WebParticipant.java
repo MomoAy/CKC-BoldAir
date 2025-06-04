@@ -3,9 +3,11 @@ package boldair.web;
 import java.io.IOException;
 import java.sql.Date;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -19,6 +21,7 @@ import boldair.data.Equipe;
 import boldair.data.InscriptionEquipe;
 import boldair.data.Participant;
 import boldair.util.Alert;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -67,6 +70,10 @@ public class WebParticipant {
 	{
 		//Je créer l'équipe dab
 		Equipe equipe = new Equipe();
+		if(!daoEquipe.verifierUniciteNom( nomEquipe, equipe.getIdEquipe() )) {
+			model.addAttribute( "alert", new Alert( Alert.Color.DANGER, "Une équipe avec ce nom existe déjà") );
+			return "public/inscription";
+		}
 		equipe.setNomEquipe( nomEquipe );
 		if(accordDonnee == 1) {
 			equipe.setAccordDonnee( accordDonnee ) ;
@@ -78,7 +85,11 @@ public class WebParticipant {
 
 		//Ensuite le premier participant
 		Participant p1 = new Participant();
-		p1.setNomPart( prenomPart1 );
+		if(!daoParticipant.verifierUniciteEmail( emailPart1, p1.getIdPart() )) {
+			model.addAttribute( "alert", new Alert( Alert.Color.DANGER,"Un des participants est déjà inscrite avec une autre équipe") );
+			return "public/inscription";
+		}
+		p1.setNomPart( nomPart1 );
 		p1.setPrenomPart( prenomPart1 );
 		p1.setEmailPart( emailPart1 );
 		p1.setDateNais( datNais1 );
@@ -90,7 +101,11 @@ public class WebParticipant {
 
 		//Ensuite le second participant
 		Participant p2 = new Participant();
-		p2.setNomPart( prenomPart2 );
+		if(!daoParticipant.verifierUniciteEmail( emailPart2, p2.getIdPart() )) {
+			model.addAttribute( "alert", new Alert( Alert.Color.DANGER, "Un des participants est déjà inscrite avec une autre équipe") );
+			return "public/inscription";
+		}
+		p2.setNomPart( nomPart2 );
 		p2.setPrenomPart( prenomPart2 );
 		p2.setEmailPart( emailPart2 );
 		p2.setDateNais( datNais2 );
@@ -115,4 +130,5 @@ public class WebParticipant {
 		return "redirect:/";
 
 	}
+	
 }
