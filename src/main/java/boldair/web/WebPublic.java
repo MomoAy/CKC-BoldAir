@@ -69,7 +69,7 @@ public class WebPublic {
 	}
 
 
-	@GetMapping( path = "/benevole" )
+	@GetMapping( "/benevole" )
 	public String edit( Long id, Model model ) {
 
 		Benevole item;
@@ -98,7 +98,7 @@ public class WebPublic {
 			return "redirect:/benevole";
 		} else {
 			model.addAttribute( "item", item );
-			result.rejectValue( "email", "", "Cet email est déjà utilisé" );
+			model.addAttribute( "alert", new Alert( Alert.Color.DANGER,"Un benevole avec ce email est déjà inscrit") );
 			return "public/benevole";
 		}
 

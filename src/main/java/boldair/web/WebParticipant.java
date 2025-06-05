@@ -2,6 +2,8 @@ package boldair.web;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -122,6 +124,7 @@ public class WebParticipant {
 		InscriptionEquipe ins = new InscriptionEquipe();
 		ins.setIdEv(evenementId);
 	    ins.setIdEquipe(equipe.getIdEquipe());
+	    ins.setDateInscription( new Timestamp(System.currentTimeMillis()) );
 	    ins.setStatut( "Attente" );
 
 		daoInscriptionEquipe.save( ins );

@@ -28,7 +28,22 @@ public class FichierController {
             return;
         }
 
-        response.setContentType("application/pdf"); // ou "image/png", selon le format réel
+        response.setContentType("application/pdf"); 
+        response.setContentLength(fichier.length);
+        response.getOutputStream().write(fichier);
+    }
+    
+    @GetMapping("/autorisation/{id}")
+    public void afficherAutorisation(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        String sql = "SELECT aut_parentale FROM participant WHERE id_part = ?";
+        byte[] fichier = jdbcTemplate.queryForObject(sql, new Object[]{id}, byte[].class);
+
+        if (fichier == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        response.setContentType("application/pdf"); 
         response.setContentLength(fichier.length);
         response.getOutputStream().write(fichier);
     }

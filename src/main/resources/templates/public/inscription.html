@@ -114,6 +114,9 @@
 
 <body>
   <header th:replace="~{_fragments/layout :: header }"></header>
+  
+  <!-- Message d'alerte -->
+  <div th:replace="~{_fragments/component :: alert}"></div>
 
   <section class="inscription">
     <form action="/inscription" method="POST" enctype="multipart/form-data">
