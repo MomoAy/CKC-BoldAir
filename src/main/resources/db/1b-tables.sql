@@ -29,6 +29,7 @@ CREATE TABLE Participant (
    certificat_med BYTEA NOT NULL,
    aut_parentale BYTEA,
    PRIMARY KEY(id_part),
+	CONSTRAINT unique_participant_info UNIQUE (email_part)
 	FOREIGN KEY(id_equipe) REFERENCES Equipe(id_equipe)
 );
 
