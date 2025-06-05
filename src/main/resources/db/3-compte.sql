@@ -104,4 +104,4 @@ INSERT INTO POSTE(id_p,nom,description,heure)VALUES
 (8,'Buvette','',7h-15h),
 (9,'Repas','',12h-14h),
 (10,'Recuperer les dossards et puces','',12h-13h30)
-(11,'Photographe','',7h-14h)
+(11,'Photographe','',7h-14h);
