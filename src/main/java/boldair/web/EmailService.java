@@ -14,6 +14,8 @@ import jakarta.mail.internet.MimeMessage;
 
 @Component
 public class EmailService {
+    private static final String FROM_EMAIL = "noreply@boldair.com";
+    private static final String FROM_NAME = "BoldAir";
 
     @Autowired
     private JavaMailSender mailSender;
@@ -23,7 +25,8 @@ public class EmailService {
         message.setTo(destinataire);
         message.setSubject(sujet);
         message.setText(contenu);
-        message.setFrom("noreply@boldair.com"); // Remplace par ton email
+        message.setFrom(FROM_EMAIL);
+        message.setReplyTo(FROM_EMAIL);
         
         mailSender.send(message);
     }
@@ -35,8 +38,9 @@ public class EmailService {
         
         helper.setTo(destinataire);
         helper.setSubject(sujet);
-        helper.setText(contenuHtml, true); // true = HTML
-        helper.setFrom("noreply@boldair.com");
+        helper.setText(contenuHtml, true);
+        helper.setFrom(FROM_EMAIL);
+        helper.setReplyTo(FROM_EMAIL);
         
         mailSender.send(message);
     }
