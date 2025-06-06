@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,9 @@ public class WebParticipant {
 	private final DaoParticipant daoParticipant;
 	private final DaoEquipe daoEquipe;
 	private final DaoInscriptionEquipe daoInscriptionEquipe;
+
+	@Autowired
+	private EmailService emailService;
 
 	@GetMapping("/inscription")
 	public String edit(Model model) {
@@ -129,6 +133,8 @@ public class WebParticipant {
 
 		daoInscriptionEquipe.save( ins );
 
+		emailService.envoyerEmailConfirmationParticipants(p1, p2, equipe);
+		emailService.envoyerEmailConfirmationParticipants(p2, p1, equipe);
 		ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Votre inscription a bien été pris en compte." ) );
 		return "redirect:/";
 

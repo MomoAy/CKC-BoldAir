@@ -7,6 +7,7 @@ import boldair.util.Paging;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +28,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WebBenevole {
 
     private final DaoBenevole daoBenevole;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping( "/benevole" )
 	public String edit( Long id, Model model ) {
@@ -52,14 +56,14 @@ public class WebBenevole {
 
 		if(daoBenevole.verifierUniciteEmail( item.getEmail(), item.getIdBen() )) {
 			item.setType( "Interne" );
-			daoBenevole.save( item );
+			Benevole savedBenevole = daoBenevole.save( item );
+			emailService.envoyerEmailConfirmationBenevole(savedBenevole);
 			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Action effectuée avec succès" ) );
 			return "redirect:/benevole";
 		} else {
-			//model.addAttribute( "item", item );
+			model.addAttribute( "item", item );
 			model.addAttribute( "alert", new Alert( Alert.Color.DANGER, "Un bénévole avec ce adresse email est déjà enregistré" ) );
-//			result.rejectValue( "email", "", "Un bénévole avec ce adresse email est déjà enregistré" );
-			return "redirect:/benevole";
+			return "public/benevole";
 		}
 
 	}

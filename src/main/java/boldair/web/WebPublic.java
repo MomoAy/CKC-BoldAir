@@ -2,6 +2,7 @@ package boldair.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,9 @@ public class WebPublic {
 		this.daoBenevole = daoBenevole;
 		this.daoEvenement = daoEvenement;
 	}
+
+	@Autowired
+	private EmailService emailService;
 
 	// -------
 	// Endpoints
@@ -54,11 +58,6 @@ public class WebPublic {
 	@GetMapping( "/qui-sommes-nous" )
 	public String quiSommesNous() {
 		return "public/qui-sommes-nous";
-	}
-
-	@GetMapping( "/dashbord" )
-	public String dashbord() {
-		return "public/dashbord";
 	}
 
 	@GetMapping( "/all-event" )
@@ -93,7 +92,8 @@ public class WebPublic {
 
 		if(daoBenevole.verifierUniciteEmail( item.getEmail(), item.getIdBen() )) {
 			item.setType( "Externe" );
-			daoBenevole.save( item );
+			Benevole savedBenevole = daoBenevole.save( item );
+			emailService.envoyerEmailConfirmationBenevole(savedBenevole);
 			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Action effectuée avec succès" ) );
 			return "redirect:/benevole";
 		} else {
