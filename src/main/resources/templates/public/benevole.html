@@ -13,6 +13,8 @@
   <!-- En-tête de page - barre de navigation -->
   <!-- -->
   <header th:replace="~{_fragments/layout :: header }"></header>
+    <!-- Message d'alerte -->
+    <div th:replace="~{_fragments/component :: alert}"></div>
 
   <!-- -->
   <!-- Contenu de la page -->
@@ -52,8 +54,8 @@
 
     </form>
   </section>
-  <!-- Message d'alerte -->
-  <div th:replace="~{_fragments/component :: alert}"></div>
+  <!-- Message d'alerte
+  <div th:replace="~{_fragments/component :: alert}"></div> -->
   <!-- -->
   <!-- Pied de page -->
   <!-- -->
