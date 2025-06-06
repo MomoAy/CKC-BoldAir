@@ -4,8 +4,10 @@ import boldair.dao.DaoBenevole;
 import boldair.data.Benevole;
 import boldair.util.Alert;
 import boldair.util.Paging;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,64 +23,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
+@RolesAllowed("ADMIN")
 @RequestMapping("/gestion-b")
-@SessionAttributes("PagingBenevole")
 public class WebBenevole {
 
     private final DaoBenevole daoBenevole;
 
-    @ModelAttribute
-	public Paging getPaging( @ModelAttribute( "pagingBenevole" ) Paging paging ) {
-		return paging;
-	}
-
-    @PostMapping( "/list/content" )
-	public String getListContent( Paging paging, Model model ) {
-
-		var page = getPage( paging );
-
-		// Si la n° de page demandé est > au nombre total, on affiche la dernière page
-		if ( paging.getPageNum() > page.getTotalPages() && page.getTotalPages() > 0 ) {
-			paging.setPageNum( page.getTotalPages() );
-			page = getPage( paging );
-		}
-
-		model.addAttribute( "list", page.getContent() );
-		model.addAttribute( "totalItems", page.getTotalElements() );
-		model.addAttribute( "totalPages", page.getTotalPages() );
-		return "benevole/list :: #dynamic_view";
-
-	}
-
-
-	// -------
-	// list() - GET
-
-	@GetMapping( "/list" )
-	public String list( Paging paging, Model model ) {
-		getListContent( paging, model );
-		return "benevole/list";
-	}
-
-
-
-	// -------
-	// list() - POST
-
-	@PostMapping( "/list" )
-	public String list() {
-		return "redirect:/benevole/list";
-	}
-
-    //@GetMapping("/list")
-    //public String afficherListeBenevoles(Model model) {
-      //  Page<Benevole> page = daoBenevole.findAllByOrderByNomBen(Pageable.unpaged());
-        //model.addAttribute("Benevole", page.getContent());
-        //model.addAttribute("pagingBenevole", page); // Utile pour la pagination dans Thymeleaf
-        //return "benevole/list";
-    //}
+	@Autowired
+	private EmailService emailService;
 	
-	@GetMapping( path = "/benevole" )
+	@GetMapping( "/benevole" )
 	public String edit( Long id, Model model ) {
 
 		Benevole item;
@@ -102,29 +56,15 @@ public class WebBenevole {
 
 		if(daoBenevole.verifierUniciteEmail( item.getEmail(), item.getIdBen() )) {
 			item.setType( "Interne" );
-			daoBenevole.save( item );
+			Benevole savedBenevole = daoBenevole.save( item );
+			emailService.envoyerEmailConfirmationBenevole(savedBenevole);
 			ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Action effectuée avec succès" ) );
 			return "redirect:/benevole";
 		} else {
 			model.addAttribute( "item", item );
-			ra.addFlashAttribute( "alert", new Alert( Alert.Color.INFO, "Action effectuée avec succès" ) );
-			return "redirect:/benevole";
+			model.addAttribute( "alert", new Alert( Alert.Color.DANGER, "Un bénévole avec ce adresse email est déjà enregistré" ) );
+			return "public/benevole";
 		}
-
-	}
-
-	
-    private Page<Benevole> getPage( Paging paging ) {
-		Page<Benevole> page;
-		var pageable = PageRequest.of( paging.getPageNum() - 1, paging.getPageSize(), Sort.by("nom") );
-
-		if(paging.getSearch().isBlank()) {
-			page = daoBenevole.findAll( pageable );
-		} else {
-			page = daoBenevole.findByNomBenContainingIgnoreCase(paging.getSearch(), pageable );
-		}
-
-		return page;
 
 	}
 
