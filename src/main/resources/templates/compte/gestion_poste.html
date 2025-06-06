@@ -68,60 +68,25 @@
   <input type="text" id="searchPoste" onkeyup="filterTable('searchPoste', 'tablePoste')"
     placeholder="Rechercher un poste...">
   <table id="tablePoste">
-    <tr>
-      <th onclick="sortTable('tablePoste', 0)">Nom du poste</th>
-      <th onclick="sortTable('tablePoste', 1)">Description</th>
-      <th onclick="sortTable('tablePoste', 2)">Heure</th>
-      <th onclick="sortTable('tablePoste', 3)">Bénevoles assignés</th>
-    </tr>
-    <tr>
-      <td>Accueil</td>
-      <td>Gérer l'entrée des Poste et vérifier les inscriptions</td>
-      <td>08:00 - 10:00</td>
-      <td>
-        <select multiple>
-          <option>Alice Dupont</option>
-          <option>Bruno Kassi</option>
-          <option>Fatou Diop</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>Sécurité</td>
-      <td>Surveiller les zones sensibles et contrôler les accès</td>
-      <td>09:00 - 12:00</td>
-      <td>
-        <select multiple>
-          <option>Jean-Paul</option>
-          <option>Nadine</option>
-          <option>Ousmane</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>Restauration</td>
-      <td>Distribuer les repas aux Poste et bénévoles</td>
-      <td>12:00 - 14:00</td>
-      <td>
-        <select multiple>
-          <option>Lucie</option>
-          <option>Hugo</option>
-          <option>Karim</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>Nettoyage</td>
-      <td>Assurer la propreté des lieux tout au long de l'événement</td>
-      <td>15:00 - 17:00</td>
-      <td>
-        <select multiple>
-          <option>Sarah</option>
-          <option>Julien</option>
-          <option>Amina</option>
-        </select>
-      </td>
-    </tr>
+    <thead>
+      <tr>
+        <th onclick="sortTable('tablePoste', 0)">Nom du poste</th>
+        <th onclick="sortTable('tablePoste', 1)">Description</th>
+        <th onclick="sortTable('tablePoste', 2)">Heure</th>
+        <th onclick="sortTable('tablePoste', 3)">Bénevoles assignés</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="poste : ${postes}">
+        <td th:text="${poste.nom}"></td>
+        <td th:text="${poste.description}"></td>
+        <td th:text="${poste.heureDebut} + ' - ' + ${poste.heureFin}"></td>
+        <td>
+          <select multiple>
+          </select>
+        </td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- Fin Contenu de la page -->

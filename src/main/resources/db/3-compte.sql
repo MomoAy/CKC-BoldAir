@@ -93,15 +93,14 @@ VALUES
 (5, 1, 'Validé');
 
 
--- INSERT INTO POSTE(id_p,nom,description,heure)VALUES
--- (1,'parking voiture-velo','Surveillance des transports',7h-9h);
--- (2,'Remise dorsat','',7h-9h),
--- (3,'Signaleur','',8h30-13h30),
--- (4,'Ravitaillement','',9h-13h),
--- (5,'Securite sur eau','',9h-10h30),
--- (6,'Chronometrage pour meme poste pour les 2bols','',9h30/10h15/13h30)
--- (7,'Fermeture des motos','',9h-13h30),
--- (8,'Buvette','',7h-15h),
--- (9,'Repas','',12h-14h),
--- (10,'Recuperer les dossards et puces','',12h-13h30)
--- (11,'Photographe','',7h-14h);
+INSERT INTO POSTE(nom, description, heure_debut, heure_fin) VALUES
+('parking voiture-velo', 'Surveillance des transports', '07:00', '09:00'),
+('Remise dorsat', '', '07:00', '09:00'),
+('Signaleur', '', '08:30', '13:30'),
+('Ravitaillement', '', '09:00', '13:00'),
+('Securite sur eau', '', '09:00', '10:30'),
+('Fermeture des motos', '', '09:00', '13:30'),
+('Buvette', '', '07:00', '15:00'),
+('Repas', '', '12:00', '14:00'),
+('Recuperer les dossards et puces', '', '12:00', '13:30'),
+('Photographe', '', '07:00', '14:00');

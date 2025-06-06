@@ -15,57 +15,56 @@ import boldair.dao.DaoEquipe;
 import boldair.dao.DaoInscriptionEquipe;
 import boldair.dao.DaoInscriptionEquipeData;
 import boldair.dao.DaoParticipant;
+import boldair.dao.DaoPoste;
 import boldair.util.Alert;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RolesAllowed("ADMIN")
-@RequestMapping("/gestion")
-@SessionAttributes("PagingAdmin")
+@RolesAllowed( "ADMIN" )
+@RequestMapping( "/gestion" )
+@SessionAttributes( "PagingAdmin" )
 public class WebAdmin {
-	
-	private final DaoParticipant daoParticipant;
-	private final DaoEquipe daoEquipe;
-	private final DaoBenevole daoBenevole;
-	private final DaoInscriptionEquipeData daoInscriptionEquipeData;
-	private final DaoInscriptionEquipe daoInscriptionEquipe;
-	
-	
+
+	private final DaoParticipant			daoParticipant;
+	private final DaoBenevole				daoBenevole;
+	private final DaoInscriptionEquipeData	daoInscriptionEquipeData;
+	private final DaoInscriptionEquipe		daoInscriptionEquipe;
+	private final DaoPoste 					daoPoste;
+
 	@GetMapping( "/participant" )
-	public String gestion_participant(Model model) {
-		model.addAttribute( "participants", daoParticipant.findAll());
+	public String gestion_participant( Model model ) {
+		model.addAttribute( "participants", daoParticipant.findAll() );
 		return "compte/gestion_participant";
 	}
-	
-	
+
 	@GetMapping( "/equipe" )
-	public String gestion_équipe(Model model) {
+	public String gestion_équipe( Model model ) {
 		model.addAttribute( "equipes", daoInscriptionEquipeData.findAllEquipeAvecInscription() );
 		return "compte/gestion_équipe";
 	}
-	
+
 	@GetMapping( "/benevole" )
-	public String gestion_benevole(Model model) {
+	public String gestion_benevole( Model model ) {
 		model.addAttribute( "benevoles", daoBenevole.findAll() );
+		model.addAttribute( "postes", daoPoste.findAll() );
 		return "compte/gestion_benevole";
 	}
-	
-	
-	@PostMapping("/update-statut/{id}")
-	public String UpdateStatusValidate(@PathVariable Long id, @RequestParam(required = false) String statut, Model model, RedirectAttributes ra) {
-		
-		
-		   if (statut == null) {
-		        ra.addFlashAttribute("alert", new Alert(Alert.Color.DANGER, "Statut manquant"));
-		        return "redirect:/gestion/equipe";
-		    }
 
-		    daoInscriptionEquipe.setStatut(id, statut);
-		    ra.addFlashAttribute("alert", new Alert(Alert.Color.SUCCESS, "Statut mis à jour"));
-		    return "redirect:/gestion/equipe";
-		
-	}	
+	@PostMapping( "/update-statut/{id}" )
+	public String UpdateStatusValidate( @PathVariable Long id, @RequestParam( required = false ) String statut,
+			Model model, RedirectAttributes ra ) {
+
+		if ( statut == null ) {
+			ra.addFlashAttribute( "alert", new Alert( Alert.Color.DANGER, "Statut manquant" ) );
+			return "redirect:/gestion/equipe";
+		}
+
+		daoInscriptionEquipe.setStatut( id, statut );
+		ra.addFlashAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Statut mis à jour" ) );
+		return "redirect:/gestion/equipe";
+
+	}
 
 }
