@@ -15,62 +15,105 @@
   <header th:replace="~{_fragments/layout :: header}"></header>
   <main class="container-fluid my-4">
 
+    <!-- -->
+    <!-- Contenu de la page -->
+    <!-- -->
+    <h2 class="text-center mb-4">Gestion des bénévoles</h2>
     <div class="row justify-content-center">
-      <div class="search-container">
-        <!-- -->
-        <!-- Contenu de la page -->
-        <!-- -->
-        <h2>Gestion des bénévoles</h2>
 
-        <!-- Bouton Ajouter -->
-        <div class="d-flex justify-content-end">
-          <a title="Ajouter" class="btn btn-primary fw-bold px-3"><i class="bi-plus-lg"></i></a>
-        </div>
-
+      <div class="col-lg-8 col-md-7">
         <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles', 'tableBenevoles')"
-          placeholder="Rechercher un bénévole...">
-        <table id="tableBenevoles">
+          class="form-control mb-3" placeholder="Rechercher un bénévole...">
 
-          <thead>
-            <tr>
-              <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Prenom</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Email</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Téléphone</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Disponibilité</th>
-              <th onclick="sortTable('tableBenevoles', 1)">type</th>
-              <th onclick="sortTable('tableBenevoles', 2)">Poste</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+        <table class="table table-bordered" id="tableBenevoles" data-sort-dir="asc">
 
-          <tbody>
-            <tr th:each="ben : ${benevoles}">
-              <td th:text="${ben.nomBen}"></td>
-              <td th:text="${ben.prenom}">jean@mail.com</td>
-              <td th:text="${ben.email}"></td>
-              <td th:text="${ben.telephone}"></td>
-              <td th:text="${#dates.format(ben.disponibilite, 'EEEE dd MMMM yyyy')}"></td>
-              <td th:text="${ben.type}"></td>
+          <div class="search-container">
+            <!-- -->
+            <!-- Contenu de la page -->
+            <!-- -->
+            <h2>Gestion des bénévoles</h2>
 
-              <td>
-                <select>
-                  <option th:value="${poste.idP}" th:each="poste : ${postes}" th:text="${poste.nom}"></option>
-                </select>
-              </td>
+            <!-- Bouton Ajouter -->
+            <div class="d-flex justify-content-end">
+              <a title="Ajouter" class="btn btn-primary fw-bold px-3"><i class="bi-plus-lg"></i></a>
+            </div>
 
-              <td><button id="btn1">Mettre à jour</button></td>
-              <td class="py-0 text-center" style="font-size: 1.2rem;">
-                <a title="Modifier" th:href="@{/compte/form_benevole(id=*{idCompte})}"
-                  class="text-secondary bi-pencil-square"></a>&nbsp;
-                <a title="Supprimer" th:data-id="*{idCompte}" th:data-name="*{pseudo}" onclick="confirm_delete(this)"
-                  class="text-secondary bi-trash3" style=" cursor:pointer;"></a>
-              </td>
-            </tr>
-          </tbody>
+            <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles', 'tableBenevoles')"
+              placeholder="Rechercher un bénévole...">
+            <table id="tableBenevoles">
+
+
+              <thead>
+                <tr>
+                  <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
+                  <th onclick="sortTable('tableBenevoles', 1)">Email</th>
+                  <th onclick="sortTable('tableBenevoles', 2)">Poste</th>
+                  <th>Tâche à effectuer</th>
+                  <th>Note du jour</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Jean Dupont</td>
+                  <td>jean@mail.com</td>
+                  <td>
+                    <select onchange="afficherBouton('btn1')">
+                      <option>Bipeur</option>
+                      <option>Contrôleur</option>
+                      <option>Gardien</option>
+                    </select>
+                  </td>
+                  <td><input type="text" placeholder="Attribuer une tâche" oninput="afficherBouton('btn1')"></td>
+                  <td><input type="number" min="1" max="5" onchange="afficherBouton('btn1')"></td>
+                  <td><button id="btn1" class="invisible">Mettre à jour</button></td>
+                </tr>
+                <tr>
+                  <td>Claire Martin</td>
+                  <td>claire@mail.com</td>
+                  <td>
+                    <select onchange="afficherBouton('btn2')">
+                      <option>Bipeur</option>
+                      <option>Contrôleur</option>
+                      <option>Gardien</option>
+                    </select>
+                  </td>
+                  <td><input type="text" placeholder="Attribuer une tâche" oninput="afficherBouton('btn2')"></td>
+                  <td><input type="number" min="1" max="5" onchange="afficherBouton('btn2')"></td>
+                  <td><button id="btn2" class="invisible">Mettre à jour</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <tbody>
+              <tr th:each="ben : ${benevoles}">
+                <td th:text="${ben.nomBen}"></td>
+                <td th:text="${ben.prenom}">jean@mail.com</td>
+                <td th:text="${ben.email}"></td>
+                <td th:text="${ben.telephone}"></td>
+                <td th:text="${#dates.format(ben.disponibilite, 'EEEE dd MMMM yyyy')}"></td>
+                <td th:text="${ben.type}"></td>
+
+                <td>
+                  <select>
+                    <option th:value="${poste.idP}" th:each="poste : ${postes}" th:text="${poste.nom}"></option>
+                  </select>
+                </td>
+
+                <td><button id="btn1">Mettre à jour</button></td>
+                <td class="py-0 text-center" style="font-size: 1.2rem;">
+                  <a title="Modifier" th:href="@{/compte/form_benevole(id=*{idCompte})}"
+                    class="text-secondary bi-pencil-square"></a>&nbsp;
+                  <a title="Supprimer" th:data-id="*{idCompte}" th:data-name="*{pseudo}" onclick="confirm_delete(this)"
+                    class="text-secondary bi-trash3" style=" cursor:pointer;"></a>
+                </td>
+              </tr>
+            </tbody>
 
         </table>
         <!-- Fin Contenu de la page -->
+
 
       </div>
     </div>
