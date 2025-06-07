@@ -63,6 +63,7 @@
   <!-- -->
   <!-- Contenu de la page -->
   <!-- -->
+
   <main class="container-fluid my-4">
     <h2 class="text-center mb-4">Gestion des Poste</h2>
     <div class="row justify-content-center">
@@ -132,6 +133,33 @@
       </div>
     </div>
   </main>
+
+
+  <h2>Gestion des Poste</h2>
+  <input type="text" id="searchPoste" onkeyup="filterTable('searchPoste', 'tablePoste')"
+    placeholder="Rechercher un poste...">
+  <table id="tablePoste">
+    <thead>
+      <tr>
+        <th onclick="sortTable('tablePoste', 0)">Nom du poste</th>
+        <th onclick="sortTable('tablePoste', 1)">Description</th>
+        <th onclick="sortTable('tablePoste', 2)">Heure</th>
+        <th onclick="sortTable('tablePoste', 3)">Bénevoles assignés</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="poste : ${postes}">
+        <td th:text="${poste.nom}"></td>
+        <td th:text="${poste.description}"></td>
+        <td th:text="${poste.heureDebut} + ' - ' + ${poste.heureFin}"></td>
+        <td>
+          <select multiple>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 
   <!-- Fin Contenu de la page -->
 

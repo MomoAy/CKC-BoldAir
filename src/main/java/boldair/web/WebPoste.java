@@ -26,58 +26,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RolesAllowed( "ADMIN" )
 @RequestMapping( "/poste" )
-@SessionAttributes( "pagingPoste" )
 public class WebPoste {
 	
 	private final DaoPoste daoPoste;
 	private final DaoAssignation daoAssignation;
-	
-	
-	@ModelAttribute
-	public Paging getPaging( @ModelAttribute( "pagingPlat" ) Paging paging ) {
-		return paging;
-	}
 
-	// -------
-	// Endpoints
-	// -------
-
-	// -------
-	// listContent()
-
-	@PostMapping( "/list/content" )
-	public String getListContent( Paging paging, Model model ) {
-
-		var page = getPage( paging );
-
-		// Si la n° de page demandé est > au nombre total, on affiche la dernière page
-		if ( paging.getPageNum() > page.getTotalPages() && page.getTotalPages() > 0 ) {
-			paging.setPageNum( page.getTotalPages() );
-			page = getPage( paging );
-		}
-
-		model.addAttribute( "list", page.getContent() );
-		model.addAttribute( "totalItems", page.getTotalElements() );
-		model.addAttribute( "totalPages", page.getTotalPages() );
-		return "plat/list :: #dynamic_view";
-
-	}
-
-	// -------
-	// list() - GET
-
-	@GetMapping( "/list" )
-	public String list( Paging paging, Model model ) {
-		getListContent( paging, model );
-		return "list";
-	}
-
-	// -------
-	// list() - POST
-
-	@PostMapping( "/list" )
-	public String list() {
-		return "redirect:/list";
+	@GetMapping("/postes")
+	public String AllPostes(Model model) {
+		model.addAttribute( "postes", daoPoste.findAll() );
+		return "compte/gestion_poste";
 	}
 	
 	//Ajout de Poste
@@ -120,8 +77,7 @@ public class WebPoste {
 	public String delete( Long id, Paging paging, Model model ) {
 		daoPoste.deleteById( id );
 		model.addAttribute( "alert", new Alert( Alert.Color.SUCCESS, "Suppression effectuée avec succès" ) );
-		return getListContent( paging, model );
-
+		return "compte/gestion_poste";
 	}
 	
 	
@@ -150,18 +106,4 @@ public class WebPoste {
 	}
 		
 	
-	private Page<Poste> getPage( Paging paging ) {
-		Page<Poste> page;
-		var pageable = PageRequest.of( paging.getPageNum() - 1, paging.getPageSize(), Sort.by("nom") );
-
-		if(paging.getSearch().isBlank()) {
-			page = daoPoste.findAll( pageable );
-		} else {
-			page = daoPoste.findByNomContainingIgnoreCase(paging.getSearch(), pageable );
-		}
-
-		return page;
-
-	}
-
 }

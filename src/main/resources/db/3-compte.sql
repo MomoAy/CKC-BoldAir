@@ -92,3 +92,15 @@ VALUES
 (4, 1, 'Attente'),
 (5, 1, 'Validé');
 
+
+INSERT INTO POSTE(nom, description, heure_debut, heure_fin) VALUES
+('parking voiture-velo', 'Surveillance des transports', '07:00', '09:00'),
+('Remise dorsat', '', '07:00', '09:00'),
+('Signaleur', '', '08:30', '13:30'),
+('Ravitaillement', '', '09:00', '13:00'),
+('Securite sur eau', '', '09:00', '10:30'),
+('Fermeture des motos', '', '09:00', '13:30'),
+('Buvette', '', '07:00', '15:00'),
+('Repas', '', '12:00', '14:00'),
+('Recuperer les dossards et puces', '', '12:00', '13:30'),
+('Photographe', '', '07:00', '14:00');

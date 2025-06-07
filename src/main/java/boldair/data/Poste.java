@@ -13,8 +13,6 @@ import org.springframework.data.annotation.Id;
 @EqualsAndHashCode( of = "idP" )
 public class Poste {
 	
-	
-	
    @Id
    private long idP;
    
@@ -22,9 +20,8 @@ public class Poste {
    
    private String description;
    
-   private Time heure;
+   private Time heureDebut;
    
-
-   	
+   private Time heureFin;
 	
 }

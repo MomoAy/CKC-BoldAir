@@ -114,6 +114,9 @@
 
 <body>
   <header th:replace="~{_fragments/layout :: header }"></header>
+  
+  <!-- Message d'alerte -->
+  <div th:replace="~{_fragments/component :: alert}"></div>
 
   <section class="inscription">
     <form action="/inscription" method="POST" enctype="multipart/form-data">
@@ -154,11 +157,11 @@
         <input type="email" name="emailPart1">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificatMedical1" class="file-input">
+        <input type="file" name="certificatMedical1" class="file-input" accept="application/pdf">
 
         <div id="autorisation_capitaine_container" style="display: none;">
           <label for="autorisation_capitaine">Autorisation parentale (capitaine mineur)</label>
-          <input type="file" name="autParentale1" id="autorisation_capitaine">
+          <input type="file" name="autParentale1" id="autorisation_capitaine" accept="application/pdf">
         </div>
 
         <label for="accord_image">Accord sur l'image</label>
@@ -202,14 +205,14 @@
         <input type="email" name="emailPart2">
 
         <label>Certificat médical</label>
-        <input type="file" name="certificatMedical2" class="file-input">
+        <input type="file" name="certificatMedical2" class="file-input" accept="application/pdf">
 
         <label for="accord_image">Accord sur l'image</label>
         <input type="checkbox" name="accordImage2" id="accordImage2" value=1>
 
         <div id="autorisation_equipier_container" style="display: none;">
           <label for="autorisation_equipier">Autorisation parentale (équipier mineur)</label>
-          <input type="file" name="autParentale2" id="autorisation_equipier">
+          <input type="file" name="autParentale2" id="autorisation_equipier" accept="application/pdf">
         </div>
       </div>
       <!-- Section Charte -->

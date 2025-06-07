@@ -63,16 +63,16 @@
                   <a th:href="@{/gestion/benevole}" class="dropdown-item">Gestion des bénévoles</a>
                 </li>
                 <li>
-                  <a th:href="@{/compte/gestion_poste}" class="dropdown-item">Gestion des postes</a>
+                  <a th:href="@{/poste/postes}" class="dropdown-item">Gestion des postes</a>
                 </li>
               </ul>
             </li>
 
             <li sec:authorize="isAnonymous()">
-              <a th:href="@{/inscription}" class="nav-link">inscription</a>
+              <a th:href="@{/inscription}" class="nav-link">Inscription</a>
             </li>
             <li sec:authorize="isAnonymous()">
-              <a th:href="@{/benevole}" class="nav-link">bénévole</a>
+              <a th:href="@{/benevole}" class="nav-link">Bénévole</a>
             </li>
             <li sec:authorize="isAnonymous()" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-dark" href="#" data-bs-toggle="dropdown">À propos</a>
