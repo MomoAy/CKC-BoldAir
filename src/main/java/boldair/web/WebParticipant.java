@@ -29,8 +29,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/participant")
-@SessionAttributes("PagingParticipant")
 public class WebParticipant {
 
 	private final DaoParticipant daoParticipant;

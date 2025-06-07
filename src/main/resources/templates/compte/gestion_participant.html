@@ -86,7 +86,7 @@
               </td>
               <td>
                 <!-- Afficher “Voir” seulement si certificatMed n’est pas null ET length > 0 -->
-                <a th:if="${p.autParentale != null and p.autParentale.length > 0}" th:href="@{'/certificat/' + ${p.idPart}}"
+                <a th:if="${p.autParentale != null and p.autParentale.length > 0}" th:href="@{'/autorisation/' + ${p.idPart}}"
                   target="_blank">
                   Voir
                 </a>
