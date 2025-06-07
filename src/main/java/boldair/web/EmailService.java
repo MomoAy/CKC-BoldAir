@@ -27,8 +27,9 @@ public class EmailService {
         message.setText(contenu);
         message.setFrom(FROM_EMAIL);
         message.setReplyTo(FROM_EMAIL);
-        
+
         mailSender.send(message);
+
     }
 
 
