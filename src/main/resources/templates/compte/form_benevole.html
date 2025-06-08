@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:with="tabTitle=${item.pseudo}!=null?${item.pseudo}:'Nouveau compte'" lang="fr">
+<html lang="fr">
 
 <head th:replace="~{_fragments/layout :: head(${tabTitle})}">
   <meta charset="UTF-8">
@@ -25,52 +25,36 @@
     <!-- Ajustement en largeur -->
     <div class="mt-lg-5 mx-auto" style="max-width: 23rem;">
 
-      <!-- Formulaire de saisie -->
-      <form th:action="@{/compte/form_benevole}" th:object="${item}" method="post">
+    <form class="form-container" th:action="@{/gestion-b/benevole}" method="post" th:object="${item}">
 
-        <!-- Champs cachés : id et empreinte du mot de pase -->
-        <input type="hidden" th:field="*{idCompte}">
+      <!-- Champ caché : id -->
+      <input type="hidden" th:field="*{idBen}">
 
-        <!-- E-mail -->
-        <div class="row my-4">
-          <div class="col-12 col-xl-4">
-            <label for="email" class="col-form-label">E-mail *</label>
-          </div>
-          <div class="col">
-            <input type="email" th:field="*{email}" required maxlength="50" class="form-control">
-            <div th:errors="*{email}" class="text-danger"></div>
-          </div>
-        </div>
-        <div class="row my-4">
-          <div class="col-12 col-xl-4">
-            <label for="pseudo" class="col-form-label">Nom *</label>
-          </div>
-          <div class="col">
-            <input type="text" th:field="*{pseudo}" required minlength="3" maxlength="25" autofocus
-              class="form-control">
-            <div th:errors="*{pseudo}" class="text-danger"></div>
-          </div>
-        </div>
+      <!-- Nom -->
+      <label for="nom">Nom</label>
+      <input type="text" id="nom" th:field="*{nomBen}" required>
 
-        <!-- Rôle Admin -->
-        <div class="row my-4">
-          <div class="col-4 col-xl-4">
-            <label for="roleAdmin" class="form-check-label">Rôle Admin</label>
-          </div>
-          <div class="col">
-            <div class="form-check">
-              <input type="checkbox" id="roleAdmin" th:field="*{roleAdmin}" class="form-check-input">
-            </div>
-          </div>
-        </div>
+      <!-- Prénom -->
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" th:field="*{prenom}" required>
 
-        <!-- Boutons en bas du formulaire -->
-        <div class="mt-4 text-center">
-          <input type="submit" class="btn btn-primary" value="Valider">
-          <a th:href="@{/compte/list}" class="btn btn-outline-secondary">Fermer </a>
-        </div>
+      <!-- Email -->
+      <label for="email">Adresse email</label>
+      <input type="email" id="email" th:field="*{email}" required>
 
-      </form> <!-- Fin Formulaire de saisie -->
+      <!-- Téléphone -->
+      <label for="telephone">Numéro de téléphone</label>
+      <input type="tel" id="telephone" th:field="*{telephone}" required>
+
+      <!-- Disponibilité -->
+      <label for="disponibilite">Date de disponibilité</label>
+      <input type="date" id="disponibilite" th:field="*{disponibilite}" required>
+
+
+      <button type="submit">Modifier</button>
+      <button type="reset">Annuler</button>
+
+    </form>
 
     </div> <!-- Fin Ajustement en largeur -->
 

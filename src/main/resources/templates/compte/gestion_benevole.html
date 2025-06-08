@@ -7,47 +7,157 @@
   <link rel="stylesheet" href="../../static/css/styles.css" />
 
   <!-- Style personnalisé intégré -->
+  <style>
+    /* === En-tête titre + bouton === */
+    .benevole-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      background: #f0f8ff;
+    }
 
+    .benevole-title {
+      font-size: 1.9rem;
+      color: #2e86de;
+      margin: 0;
+    }
+
+    /* Sélecteur très précis pour écraser Bootstrap */
+    .benevole-header a.benevole-btn-ajouter {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      background-color: #2e86de !important;
+      color: #fff !important;
+      padding: 0.6rem 1.2rem !important;
+      border-radius: 0.4rem !important;
+      font-size: 1rem !important;
+      font-weight: 500 !important;
+      box-shadow: 0 4px 12px rgba(46, 134, 222, 0.3) !important;
+      transition: background 0.2s, transform 0.2s !important;
+      cursor: pointer !important;
+      border: none !important;
+    }
+
+    .benevole-header a.benevole-btn-ajouter:hover {
+      background-color: #1b4f72 !important;
+      transform: translateY(-2px) !important;
+    }
+
+    /* === Barre de recherche === */
+    #searchBenevoles {
+      display: block;
+      width: calc(80% - 2rem);
+      margin: 0 auto 1.5rem;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccddee;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* === Tableau centré et limité === */
+    #tableBenevoles {
+      width: 80%;
+      margin: 0 auto 2rem;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      border-radius: 0.6rem;
+      overflow: hidden;
+    }
+
+    #tableBenevoles th,
+    #tableBenevoles td {
+      padding: 0.85rem 1.2rem;
+      color: #333;
+    }
+
+    #tableBenevoles th {
+      background: #e0f0ff;
+      color: #1a3e6e;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #tableBenevoles tr:nth-child(even) {
+      background: #fafcff;
+    }
+
+    #tableBenevoles tr:hover td {
+      background: #f0f8ff;
+    }
+
+    /* === Sélecteur poste et bouton mise à jour === */
+    .benevole-select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccddee;
+      border-radius: 0.3rem;
+      background: #f9fcff;
+    }
+
+    .benevole-btn-update {
+      background: #2e86de;
+      color: #fff;
+      padding: 0.45rem 0.9rem;
+      border: none;
+      border-radius: 0.3rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .benevole-btn-update:hover {
+      background: #1b4f72;
+    }
+  </style>
 </head>
 
 <body>
 
   <header th:replace="~{_fragments/layout :: header}"></header>
-
-    <!-- Message d'alerte -->
-    <div th:replace="~{_fragments/component :: alert}"></div>
+  <div th:replace="~{_fragments/component :: alert}"></div>
 
   <main class="container-fluid my-4">
-
     <div class="row justify-content-center">
       <div class="search-container">
-        <!-- -->
-        <!-- Contenu de la page -->
-        <!-- -->
-        <h2>Gestion des bénévoles</h2>
 
-        <!-- Bouton Ajouter -->
-        <div class="d-flex justify-content-end">
-          <a title="Ajouter" class="btn btn-primary fw-bold px-3"><i class="bi-plus-lg"></i></a>
-        </div>
+        <!-- En-tête avec titre et bouton Ajouter -->
+      <div class="benevole-header">
+        <h2 class="benevole-title">Gestion des bénévoles</h2>
+        <a th:href="@{/compte/form_benevole}" class="benevole-btn-ajouter">
+          <i class="bi-plus-lg"></i>&nbsp;Ajouter
+        </a>
+      </div>
 
-        <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles', 'tableBenevoles')"
-          placeholder="Rechercher un bénévole...">
-        <table id="tableBenevoles">
 
+
+        <!-- Barre de recherche -->
+        <input type="text" id="searchBenevoles" onkeyup="filterTable('searchBenevoles','tableBenevoles')"
+          placeholder="Rechercher un bénévole..." />
+
+        <!-- Tableau des bénévoles -->
+        <table id="tableBenevoles" data-sort-dir="asc">
           <thead>
             <tr>
-              <th onclick="sortTable('tableBenevoles', 0)">Nom</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Prenom</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Email</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Téléphone</th>
-              <th onclick="sortTable('tableBenevoles', 1)">Disponibilité</th>
-              <th onclick="sortTable('tableBenevoles', 1)">type</th>
-              <th onclick="sortTable('tableBenevoles', 2)">Poste</th>
+              <th onclick="sortTable('tableBenevoles',0)">Nom</th>
+              <th onclick="sortTable('tableBenevoles',1)">Prénom</th>
+              <th onclick="sortTable('tableBenevoles',2)">Email</th>
+              <th onclick="sortTable('tableBenevoles',3)">Téléphone</th>
+              <th onclick="sortTable('tableBenevoles',4)">Disponibilité</th>
+              <th onclick="sortTable('tableBenevoles',5)">Type</th>
+              <th onclick="sortTable('tableBenevoles',6)">Poste</th>
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             <tr th:each="ben : ${benevoles}">
               <form th:action="@{'/poste/affect-poste-to-benevole/' + ${ben.idBen}}" method="post">
@@ -55,29 +165,31 @@
                 <td th:text="${ben.prenom}"></td>
                 <td th:text="${ben.email}"></td>
                 <td th:text="${ben.telephone}"></td>
-                <td th:text="${#dates.format(ben.disponibilite, 'EEEE dd MMMM yyyy')}"></td>
+                <td th:text="${#dates.format(ben.disponibilite,'EEEE dd MMMM yyyy')}"></td>
                 <td th:text="${ben.type}"></td>
-
                 <td>
-                  <select name="idP">
-                    <option th:value="${poste.idP}" th:each="poste : ${postes}" th:text="${poste.nom}" th:selected="${poste.idP} == ${ben.idBen}"></option>
+                  <select name="idP" class="benevole-select">
+                    <option th:each="poste : ${postes}" th:value="${poste.idP}" th:text="${poste.nom}"
+                      th:selected="${poste.idP} == ${ben.idBen}">
+                    </option>
                   </select>
                 </td>
-
-                <td><button type="submit" id="btn1">Mettre à jour</button></td>
-
+                <td>
+                  <button type="submit" class="benevole-btn-update">
+                    Mettre à jour
+                  </button>
+                </td>
                 <td class="py-0 text-center" style="font-size: 1.2rem;">
-                  <a title="Modifier" th:href="@{/compte/form_benevole(id=*{idCompte})}"
-                    class="text-secondary bi-pencil-square"></a>&nbsp;
-                  <a title="Supprimer" th:data-id="*{idCompte}" th:data-name="*{pseudo}" onclick="confirm_delete(this)"
-                    class="text-secondary bi-trash3" style=" cursor:pointer;"></a>
+                  <a title="Modifier" th:href="@{'/gestion-b/benevole/' + ${ben.idBen}}"
+                    class="text-secondary bi-pencil-square"></a>
+                  &nbsp;
+                  <a title="Supprimer" th:href="@{'/gestion-b/delete/' + ${ben.idBen}}" class="text-secondary bi-trash3"
+                    style="cursor:pointer;"></a>
                 </td>
               </form>
             </tr>
           </tbody>
-
         </table>
-        <!-- Fin Contenu de la page -->
 
       </div>
     </div>
@@ -87,39 +199,30 @@
   <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
 
   <script>
-    function afficherBouton(id) {
-      document.getElementById(id).classList.add('visible');
-    }
-
     function filterTable(inputId, tableId) {
-      const input = document.getElementById(inputId);
-      const filter = input.value.toLowerCase();
-      const table = document.getElementById(tableId);
-      const tr = table.getElementsByTagName("tr");
-
-      for (let i = 1; i < tr.length; i++) {
-        const tds = tr[i].getElementsByTagName("td");
-        let visible = false;
-        for (let j = 0; j < tds.length; j++) {
-          if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
-            visible = true;
-            break;
-          }
-        }
-        tr[i].style.display = visible ? "" : "none";
-      }
+      const filter = document.getElementById(inputId).value.toLowerCase();
+      Array.from(document.getElementById(tableId).tBodies[0].rows)
+        .forEach(row => {
+          row.style.display = Array.from(row.cells)
+            .some(td => td.textContent.toLowerCase().includes(filter))
+            ? '' : 'none';
+        });
     }
-
-    function sortTable(tableId, colIndex) {
-      const table = document.getElementById(tableId);
-      const rows = Array.from(table.rows).slice(1);
-      const asc = table.getAttribute("data-sort-dir") !== "asc";
-
-      rows.sort((a, b) => {
-        const cellA = a.cells[colIndex].innerText.toLowerCase();
-        const cellB = b.cells[colIndex].innerText.toLowerCase();
-        return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
-      });
-
-      rows.forEach(row => table.appendChild(row));
+    function sortTable(tableId, col) {
+      const table = document.getElementById(tableId),
+        asc = table.getAttribute('data-sort-dir') !== 'asc';
+      const rows = Array.from(table.tBodies[0].rows)
+        .sort((a, b) => asc
+          ? a.cells[col].innerText.localeCompare(b.cells[col].innerText)
+          : b.cells[col].innerText.localeCompare(a.cells[col].innerText)
+        );
+      rows.forEach(r => table.tBodies[0].appendChild(r));
+      table.setAttribute('data-sort-dir', asc ? 'asc' : 'desc');
     }
+    function ouvrirModalBenevole() {
+      /* À implémenter si besoin */
+    }
+  </script>
+</body>
+
+</html>
