@@ -52,7 +52,7 @@ public class WebAdmin {
 		return "compte/gestion_benevole";
 	}
 
-	@PostMapping( "/update-statut/{id}" )
+	@PostMapping( "/update-equipe-statut/{id}" )
 	public String UpdateStatusValidate( @PathVariable Long id, @RequestParam( required = false ) String statut,
 			Model model, RedirectAttributes ra ) {
 

@@ -4,6 +4,7 @@ package boldair.data;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 import org.springframework.data.annotation.Id;
 
@@ -15,13 +16,9 @@ public class Poste {
 	
    @Id
    private long idP;
-   
    private String nom;
-   
    private String description;
-   
-   private Time heureDebut;
-   
-   private Time heureFin;
+   private LocalTime heureDebut;
+   private LocalTime heureFin;
 	
 }

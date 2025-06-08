@@ -7,73 +7,159 @@
   <link rel="stylesheet" href="../../static/css/styles.css" />
 </head>
 
-<script>
-  function afficherBouton(id) {
-    document.getElementById(id).classList.add('visible');
-  }
-
-  function filterTable(inputId, tableId) {
-    const input = document.getElementById(inputId);
-    const filter = input.value.toLowerCase();
-    const table = document.getElementById(tableId);
-    const tr = table.getElementsByTagName("tr");
-
-    for (let i = 1; i < tr.length; i++) {
-      const tds = tr[i].getElementsByTagName("td");
-      let visible = false;
-      for (let j = 0; j < tds.length; j++) {
-        if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
-          visible = true;
-          break;
-        }
-      }
-      tr[i].style.display = visible ? "" : "none";
-    }
-  }
-
-  function sortTable(tableId, colIndex) {
-    const table = document.getElementById(tableId);
-    const rows = Array.from(table.rows).slice(1);
-    const asc = table.getAttribute("data-sort-dir") !== "asc";
-
-    rows.sort((a, b) => {
-      const cellA = a.cells[colIndex].innerText.toLowerCase();
-      const cellB = b.cells[colIndex].innerText.toLowerCase();
-      return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-    table.setAttribute("data-sort-dir", asc ? "asc" : "desc");
-  }
-</script>
-<style>
-  select {
-    width: 100%;
-    padding: 8px;
-  }
-</style>
-
 <body>
 
-  <!-- -->
-  <!-- En-tête de page - barre de navigation -->
-  <!-- -->
+  <!-- En-tête de page -->
   <header th:replace="~{_fragments/layout :: header }"></header>
+  <div th:replace="~{_fragments/component :: alert}"></div>
 
-  <!-- -->
+  <!-- CSS local simplifié, couleurs de base bleues -->
+  <style>
+    /* Header simple */
+    .poste-header {
+      width: 100%;
+      padding: 1rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .poste-title {
+      font-size: 1.75rem;
+      color: #2e86de;
+      margin: 0;
+    }
+
+    /* Recherche */
+    #searchPoste {
+      display: block;
+      width: calc(80% - 2rem);
+      margin: 0 auto 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    /* Tableau limité à 80% */
+    #tablePoste {
+      width: 80%;
+      margin: 0 auto 2rem;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    #tablePoste th,
+    #tablePoste td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: #333;
+    }
+
+    #tablePoste th {
+      background: #f0f8ff;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    #tablePoste tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    /* Bouton principal (placé sous le tableau) */
+    .poste-btn-ajouter {
+      display: block;
+      margin: 0 auto 2rem;
+      background-color: #2e86de;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color .2s;
+    }
+
+    .poste-btn-ajouter:hover {
+      background-color: #1b4f72;
+    }
+
+    /* Modal centré basique */
+    .poste-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .poste-modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .poste-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .poste-modal-content form input,
+    .poste-modal-content form button {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.4rem;
+    }
+
+    .poste-modal-content form button {
+      background-color: #2e86de;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color .2s;
+    }
+
+    .poste-modal-content form button:hover {
+      background-color: #1b4f72;
+    }
+  </style>
+
   <!-- Contenu de la page -->
-  <!-- -->
+  <div class="poste-header">
+    <h2 class="poste-title">Gestion des Postes</h2>
+  </div>
 
-  <h2>Gestion des Poste</h2>
-  <input type="text" id="searchPoste" onkeyup="filterTable('searchPoste', 'tablePoste')"
-    placeholder="Rechercher un poste...">
-  <table id="tablePoste">
+  <!-- Bouton d'ajout placé sous le tableau -->
+  <button class="poste-btn-ajouter" onclick="ouvrirModal()">Ajouter un poste</button>
+
+  <input type="text" id="searchPoste" onkeyup="filterTable('searchPoste','tablePoste')"
+    placeholder="Rechercher un poste..." />
+
+  <table id="tablePoste" data-sort-dir="asc">
     <thead>
       <tr>
-        <th onclick="sortTable('tablePoste', 0)">Nom du poste</th>
-        <th onclick="sortTable('tablePoste', 1)">Description</th>
-        <th onclick="sortTable('tablePoste', 2)">Heure</th>
-        <th onclick="sortTable('tablePoste', 3)">Bénevoles assignés</th>
+        <th onclick="sortTable('tablePoste',0)">Nom</th>
+        <th onclick="sortTable('tablePoste',1)">Description</th>
+        <th onclick="sortTable('tablePoste',2)">Heure</th>
+        <th onclick="sortTable('tablePoste',3)">Bénévoles</th>
       </tr>
     </thead>
     <tbody>
@@ -82,23 +168,63 @@
         <td th:text="${poste.description}"></td>
         <td th:text="${poste.heureDebut} + ' - ' + ${poste.heureFin}"></td>
         <td>
-          <select multiple>
-          </select>
+          <ul>
+            <li th:each="ben : ${affectations[poste.idP]}" th:text="${ben.nomBen}"></li>
+            <li th:if="${#lists.isEmpty(affectations[poste.idP])}">Aucun bénévole</li>
+          </ul>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Fin Contenu de la page -->
+  <!-- Modal d'ajout de poste -->
+  <div id="modalAjoutPoste" class="poste-modal">
+    <div class="poste-modal-content">
+      <span class="poste-close" onclick="fermerModal()">&times;</span>
+      <h3>Ajouter un poste</h3>
+      <form method="post" th:action="@{/poste/form}" th:object="${item}">
+        <input type="text" name="nom" placeholder="Nom du poste" required />
+        <input type="text" name="description" placeholder="Description" required />
+        <label for="heureDebut">
+          Heure début
+          <input type="time" name="heureDebut" required />
+        </label>
+        <label for="heureFin">
+          Heure de Fin
+          <input type="time" name="heureFin" required />
+        </label>
+        <button type="submit">Valider</button>
+      </form>
+    </div>
+  </div>
 
-  <!-- -->
-  <!-- Pied de page -->
-  <!-- -->
-  <footer th:replace="~{_fragments/layout :: footer}"> </footer>
-
-  <!-- Scripts définis dans le layout -->
+  <!-- Footer & scripts -->
+  <footer th:replace="~{_fragments/layout :: footer}"></footer>
   <th:block th:replace="~{_fragments/layout :: bottom-scripts}"></th:block>
-
+  <script>
+    function filterTable(inputId, tableId) {
+      const filter = document.getElementById(inputId).value.toLowerCase();
+      Array.from(document.getElementById(tableId).tBodies[0].rows)
+        .forEach(row => {
+          row.style.display = Array.from(row.cells)
+            .some(td => td.textContent.toLowerCase().includes(filter)) ? '' : 'none';
+        });
+    }
+    function sortTable(tableId, col) {
+      const table = document.getElementById(tableId),
+        asc = table.getAttribute('data-sort-dir') !== 'asc';
+      const rows = Array.from(table.tBodies[0].rows).sort((a, b) =>
+        asc
+          ? a.cells[col].innerText.localeCompare(b.cells[col].innerText)
+          : b.cells[col].innerText.localeCompare(a.cells[col].innerText)
+      );
+      rows.forEach(r => table.tBodies[0].appendChild(r));
+      table.setAttribute('data-sort-dir', asc ? 'asc' : 'desc');
+    }
+    function ouvrirModal() { document.getElementById('modalAjoutPoste').style.display = 'block'; }
+    function fermerModal() { document.getElementById('modalAjoutPoste').style.display = 'none'; }
+    window.onclick = e => { if (e.target === document.getElementById('modalAjoutPoste')) fermerModal(); };
+  </script>
 </body>
 
 </html>

@@ -74,7 +74,7 @@
         </tr>
         <tbody>
           <tr th:each="e : ${equipes}">
-            <form th:action="@{'/gestion/update-statut/' + ${e.idEquipe}}" method="post">
+            <form th:action="@{'/gestion/update-equipe-statut/' + ${e.idEquipe}}" method="post">
               <td th:text="${e.nomEquipe}"></td>
               <td th:text="${e.dossard}"></td>
               <td th:text="${#dates.format(e.dateInscription, 'EEEE dd MMMM yyyy')}"></td>

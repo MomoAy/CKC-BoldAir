@@ -16,6 +16,5 @@ public interface DaoPoste extends CrudRepository<Poste, Long> {
 	
 	//@Query("SELECT p.nom, p.description, COUNT(*) as NBP FROM poste p JOIN assignation a on p.id_p = a.id_p where a.id_ben = b.id_ben group by p.nom, p.description")
 	//@NonNull Iterable<Poste> findAll();
-	
 
 }
